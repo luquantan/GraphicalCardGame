@@ -14,6 +14,8 @@
 		D976B2321A0934DB000877AF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D976B2311A0934DB000877AF /* Images.xcassets */; };
 		D976B2351A0934DB000877AF /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D976B2331A0934DB000877AF /* LaunchScreen.xib */; };
 		D976B2411A0934DB000877AF /* GraphicalCardGameTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D976B2401A0934DB000877AF /* GraphicalCardGameTests.m */; };
+		D976B24C1A0935BE000877AF /* Card.m in Sources */ = {isa = PBXBuildFile; fileRef = D976B24B1A0935BE000877AF /* Card.m */; };
+		D976B24F1A0935F4000877AF /* Deck.m in Sources */ = {isa = PBXBuildFile; fileRef = D976B24E1A0935F4000877AF /* Deck.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,10 @@
 		D976B23A1A0934DB000877AF /* GraphicalCardGameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GraphicalCardGameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D976B23F1A0934DB000877AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D976B2401A0934DB000877AF /* GraphicalCardGameTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GraphicalCardGameTests.m; sourceTree = "<group>"; };
+		D976B24A1A0935BE000877AF /* Card.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Card.h; sourceTree = "<group>"; };
+		D976B24B1A0935BE000877AF /* Card.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Card.m; sourceTree = "<group>"; };
+		D976B24D1A0935F4000877AF /* Deck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Deck.h; sourceTree = "<group>"; };
+		D976B24E1A0935F4000877AF /* Deck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Deck.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +95,10 @@
 				D976B2311A0934DB000877AF /* Images.xcassets */,
 				D976B2331A0934DB000877AF /* LaunchScreen.xib */,
 				D976B2241A0934DB000877AF /* Supporting Files */,
+				D976B24A1A0935BE000877AF /* Card.h */,
+				D976B24B1A0935BE000877AF /* Card.m */,
+				D976B24D1A0935F4000877AF /* Deck.h */,
+				D976B24E1A0935F4000877AF /* Deck.m */,
 			);
 			path = GraphicalCardGame;
 			sourceTree = "<group>";
@@ -219,9 +229,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D976B24F1A0935F4000877AF /* Deck.m in Sources */,
 				D976B22D1A0934DB000877AF /* ViewController.m in Sources */,
 				D976B22A1A0934DB000877AF /* AppDelegate.m in Sources */,
 				D976B2271A0934DB000877AF /* main.m in Sources */,
+				D976B24C1A0935BE000877AF /* Card.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,6 +426,7 @@
 				D976B2461A0934DB000877AF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D976B2471A0934DB000877AF /* Build configuration list for PBXNativeTarget "GraphicalCardGameTests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +435,7 @@
 				D976B2491A0934DB000877AF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
