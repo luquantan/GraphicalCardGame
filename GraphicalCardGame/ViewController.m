@@ -9,6 +9,8 @@
 #import "ViewController.h"
 #import "PlayingCard.h"
 #import "PlayingCardDeck.h"
+#import "SetCardDeck.h"
+#import "SetCard.h"
 
 @interface ViewController ()
 
@@ -47,6 +49,21 @@
     boolOp = 5;
     NSLog(@"The value of the boolean is %i",boolOp);
     
+ 
+    
+    SetCardDeck *someDeckOfSetCards = [[SetCardDeck alloc]init];
+    NSInteger countOfSetCard = [someDeckOfSetCards numberOfCardsLeftInDeck];
+    
+    NSLog(@"The number of cards in the deck is %li",countOfSetCard);
+    
+    for (int i = 0; i < countOfSetCard; i++) {
+        NSLog(@"The number of cards in SetCardDeck is %li",[someDeckOfSetCards numberOfCardsLeftInDeck]);
+        Card *card = [someDeckOfSetCards drawRandomCard];
+        SetCard *aSetCard = (SetCard *)card;
+        NSString *contentString = [NSString stringWithFormat:@"%ld %ld %ld %ld",aSetCard.symbolAmountOnCard,aSetCard.symbolColorOnCard,aSetCard.symbolTextureOnCard,aSetCard.symbolTypeOnCard];
+        NSLog(@"The content of this card is %@",contentString);
+    }
+    
     PlayingCardDeck *someDeckOfPlayingCards = [[PlayingCardDeck alloc]init];
     NSInteger countOfCard = [someDeckOfPlayingCards numberOfCardsLeftInDeck];
     
@@ -57,6 +74,5 @@
         NSString *contentString = card.contentsOfCard;
         NSLog(@"The content of this card is %@",contentString);
     }
-    
 }
 @end
