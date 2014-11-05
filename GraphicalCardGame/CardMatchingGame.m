@@ -60,23 +60,20 @@
                 if (otherPlayingCard.isCardChosen && !otherPlayingCard.isCardMatched) {
                     [chosenCards addObject:otherPlayingCard];
                 }
-//                NSInteger scoreFromMatch = [somePlayingCard matchPlayingCards:@[otherPlayingCard] forNumberOfCards:numberOfCardsToMatch];
-//
-//                //Set the score and the isCardChosen && isCardMatched
-//                self.score = scoreFromMatch; //This is just to remove the unused variable warning
-                //
             }
-            
             somePlayingCard.isCardChosen = YES;
-            
             // -1 for currently chosen card
             if (chosenCards.count == numberOfCardsToMatch - 1) {
-                NSInteger scoreFromMatch = [somePlayingCard matchPlayingCards:chosenCards forNumberOfCards:numberOfCardsToMatch];
+                NSInteger scoreFromMatch = [somePlayingCard matchPlayingCards:chosenCards];
                 if (scoreFromMatch > 0) {
                     for (Card *card in chosenCards) {
                         card.isCardMatched = YES;
                     }
                     somePlayingCard.isCardMatched = YES;
+                } else if (scoreFromMatch < 0) {
+                    for (Card *card in chosenCards) {
+                        card.isCardChosen = NO;
+                    }
                 }
             }
         }
@@ -90,18 +87,30 @@
         if (someSetCard.isCardChosen == YES) {
             someSetCard.isCardChosen = NO;
         } else {
+            NSMutableArray *chosenCards = [NSMutableArray array];
             for (Card *otherSetCard in self.currentDeck) {
-                if (otherSetCard.isCardChosen && (someSetCard.isCardMatched == NO)) {
-                    NSInteger scoreFromMatch = [someSetCard matchSetCards:@[otherSetCard]];
-                    
-                    //Set the score and the isCardChosen && isCardMatched
-                    self.score = scoreFromMatch;
-                    //
+                if (otherSetCard.isCardChosen && !otherSetCard.isCardMatched) {
+                    [chosenCards addObject:otherSetCard];
+                }
+            }
+            someSetCard.isCardChosen = YES;
+            if ([chosenCards count] == 2) {
+                NSInteger scoreFromMatch = [someSetCard matchSetCards:chosenCards];
+                if (scoreFromMatch > 0) {
+                    for (Card *card in chosenCards) {
+                        card.isCardMatched = YES;
+                    }
+                    someSetCard.isCardMatched = YES;
+                } else if (scoreFromMatch < 0) {
+                    for (Card *card in chosenCards) {
+                        card.isCardChosen = NO;
+                    }
                 }
             }
         }
     }
 }
+
 
 - (Card *)cardAtIndex:(NSUInteger)index
 {

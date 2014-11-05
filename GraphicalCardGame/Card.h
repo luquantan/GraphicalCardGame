@@ -16,7 +16,7 @@
 @property (nonatomic) BOOL isCardMatched;
 
 //The match algorithms should return a score.
-- (NSInteger)matchPlayingCards:(NSArray *)playingCards forNumberOfCards:(NSInteger)numberOfCardsToMatch;
+- (NSInteger)matchPlayingCards:(NSArray *)playingCards;
 - (NSInteger)matchSetCards:(NSArray *)setCards;
 
 @end

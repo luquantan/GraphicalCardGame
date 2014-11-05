@@ -10,7 +10,7 @@
 
 @implementation Card
 //These methods are abstract. Their implememtations are located within PlayingCard and SetCard
-- (NSInteger)matchPlayingCards:(NSArray *)playingCards forNumberOfCards:(NSInteger)numberOfCardsToMatch
+- (NSInteger)matchPlayingCards:(NSArray *)playingCards
 {
     return 0;
 }

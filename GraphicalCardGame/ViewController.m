@@ -61,7 +61,7 @@
         NSLog(@"The number of cards in SetCardDeck is %li",[someDeckOfSetCards numberOfCardsLeftInDeck]);
         Card *card = [someDeckOfSetCards drawRandomCard];
         SetCard *aSetCard = (SetCard *)card;
-        NSString *contentString = [NSString stringWithFormat:@"%ld %ld %ld %ld",aSetCard.symbolAmountOnCard,aSetCard.symbolColorOnCard,aSetCard.symbolTextureOnCard,aSetCard.symbolTypeOnCard];
+        NSString *contentString = [NSString stringWithFormat:@"%ld %ld %ld %ld",aSetCard.symbolAmountOnCard,aSetCard.symbolColorOnCard,aSetCard.symbolTextureOnCard,aSetCard.symbolShapeOnCard];
         NSLog(@"The content of this card is %@",contentString);
     }
     
