@@ -18,6 +18,7 @@
 		D976B24F1A0935F4000877AF /* Deck.m in Sources */ = {isa = PBXBuildFile; fileRef = D976B24E1A0935F4000877AF /* Deck.m */; };
 		D976B25B1A0A85F0000877AF /* PlayingCard.m in Sources */ = {isa = PBXBuildFile; fileRef = D976B25A1A0A85F0000877AF /* PlayingCard.m */; };
 		D976B2611A0A876C000877AF /* SetCard.m in Sources */ = {isa = PBXBuildFile; fileRef = D976B2601A0A876C000877AF /* SetCard.m */; };
+		D976B2641A0A9545000877AF /* PlayingCardDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = D976B2631A0A9545000877AF /* PlayingCardDeck.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,8 @@
 		D976B25A1A0A85F0000877AF /* PlayingCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayingCard.m; sourceTree = "<group>"; };
 		D976B25F1A0A876C000877AF /* SetCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetCard.h; sourceTree = "<group>"; };
 		D976B2601A0A876C000877AF /* SetCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetCard.m; sourceTree = "<group>"; };
+		D976B2621A0A9545000877AF /* PlayingCardDeck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayingCardDeck.h; sourceTree = "<group>"; };
+		D976B2631A0A9545000877AF /* PlayingCardDeck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayingCardDeck.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +112,8 @@
 				D976B2601A0A876C000877AF /* SetCard.m */,
 				D976B24D1A0935F4000877AF /* Deck.h */,
 				D976B24E1A0935F4000877AF /* Deck.m */,
+				D976B2621A0A9545000877AF /* PlayingCardDeck.h */,
+				D976B2631A0A9545000877AF /* PlayingCardDeck.m */,
 			);
 			path = GraphicalCardGame;
 			sourceTree = "<group>";
@@ -240,6 +245,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D976B24F1A0935F4000877AF /* Deck.m in Sources */,
+				D976B2641A0A9545000877AF /* PlayingCardDeck.m in Sources */,
 				D976B22D1A0934DB000877AF /* ViewController.m in Sources */,
 				D976B2611A0A876C000877AF /* SetCard.m in Sources */,
 				D976B22A1A0934DB000877AF /* AppDelegate.m in Sources */,

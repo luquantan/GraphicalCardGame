@@ -31,7 +31,8 @@ typedef NS_ENUM(NSInteger, PlayingCardSuits)
     PlayingCardDiamond,
     PlayingCardClub,
     PlayingCardHeart,
-    PlayingCardSpade
+    PlayingCardSpade,
+    PlayingCardSuitsCount
 };
 
 @interface PlayingCard : Card

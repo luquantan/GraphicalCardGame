@@ -37,8 +37,8 @@
     NSLog(@"The value of rank is %ld",somePlayingCard.rank);
     
     somePlayingCard.rank = PlayingCard10;
-    NSLog(@"The value of rank is %ld",somePlayingCard.rank);
-    
+    NSLog(@"The value of rank is %li",somePlayingCard.rank);
+    NSLog(@"Does playingcard rank = 8? %i",somePlayingCard.rank == PlayingCard10);
     BOOL boolOp =1;
     NSLog(@"The value of the boolean is %i",boolOp);
     boolOp  = 0;
