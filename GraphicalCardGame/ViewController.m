@@ -28,6 +28,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+//Everything in here is only for testing purposes
 - (void)viewDidAppear:(BOOL)animated
 {
     PlayingCard *somePlayingCard = [[PlayingCard alloc]init];

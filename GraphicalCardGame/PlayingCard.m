@@ -9,6 +9,7 @@
 #import "PlayingCard.h"
 
 @implementation PlayingCard
+//This method returns the score from the match. The arguments are the array of Cards to be match and the number of cards to match.
 - (NSInteger)matchPlayingCards:(NSArray *)playingCards forNumberOfCards:(NSInteger)numberOfCardsToMatch
 {
     NSInteger scoreFromMatch = 0;

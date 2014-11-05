@@ -23,7 +23,7 @@
                         someSetCard.symbolAmountOnCard = i;
                         someSetCard.symbolColorOnCard = j;
                         someSetCard.symbolTextureOnCard = k;
-                        someSetCard.symbolTypeOnCard = l;
+                        someSetCard.symbolShapeOnCard = l;
                         [self addCard:someSetCard];
                     }
                 }

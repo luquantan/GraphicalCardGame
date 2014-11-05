@@ -20,6 +20,7 @@
 		D976B2611A0A876C000877AF /* SetCard.m in Sources */ = {isa = PBXBuildFile; fileRef = D976B2601A0A876C000877AF /* SetCard.m */; };
 		D976B2641A0A9545000877AF /* PlayingCardDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = D976B2631A0A9545000877AF /* PlayingCardDeck.m */; };
 		D976B2671A0AB83D000877AF /* SetCardDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = D976B2661A0AB83D000877AF /* SetCardDeck.m */; };
+		D976B26A1A0AC187000877AF /* CardMatchingGame.m in Sources */ = {isa = PBXBuildFile; fileRef = D976B2691A0AC187000877AF /* CardMatchingGame.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,8 @@
 		D976B2631A0A9545000877AF /* PlayingCardDeck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayingCardDeck.m; sourceTree = "<group>"; };
 		D976B2651A0AB83D000877AF /* SetCardDeck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetCardDeck.h; sourceTree = "<group>"; };
 		D976B2661A0AB83D000877AF /* SetCardDeck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetCardDeck.m; sourceTree = "<group>"; };
+		D976B2681A0AC187000877AF /* CardMatchingGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardMatchingGame.h; sourceTree = "<group>"; };
+		D976B2691A0AC187000877AF /* CardMatchingGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardMatchingGame.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +122,8 @@
 				D976B2631A0A9545000877AF /* PlayingCardDeck.m */,
 				D976B2651A0AB83D000877AF /* SetCardDeck.h */,
 				D976B2661A0AB83D000877AF /* SetCardDeck.m */,
+				D976B2681A0AC187000877AF /* CardMatchingGame.h */,
+				D976B2691A0AC187000877AF /* CardMatchingGame.m */,
 			);
 			path = GraphicalCardGame;
 			sourceTree = "<group>";
@@ -251,6 +256,7 @@
 			files = (
 				D976B24F1A0935F4000877AF /* Deck.m in Sources */,
 				D976B2641A0A9545000877AF /* PlayingCardDeck.m in Sources */,
+				D976B26A1A0AC187000877AF /* CardMatchingGame.m in Sources */,
 				D976B22D1A0934DB000877AF /* ViewController.m in Sources */,
 				D976B2671A0AB83D000877AF /* SetCardDeck.m in Sources */,
 				D976B2611A0A876C000877AF /* SetCard.m in Sources */,

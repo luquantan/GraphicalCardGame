@@ -33,12 +33,12 @@ typedef NS_ENUM(NSInteger, SetCardSymbolTexture)
     SetCardSymbolTextureCount
 };
 
-typedef NS_ENUM(NSInteger, SetCardSymbolType)
+typedef NS_ENUM(NSInteger, SetCardSymbolShape)
 {
-    SetCardSymbolType1,
-    SetCardSymbolType2,
-    SetCardSymbolType3,
-    SetCardSymbolTypeCount
+    SetCardSymbolShape1,
+    SetCardSymbolShape2,
+    SetCardSymbolShape3,
+    SetCardSymbolShapeCount
 };
 
 @interface SetCard : Card
@@ -47,5 +47,5 @@ typedef NS_ENUM(NSInteger, SetCardSymbolType)
 @property (nonatomic) SetCardSymbolAmount symbolAmountOnCard;
 @property (nonatomic) SetCardSymbolColor symbolColorOnCard;
 @property (nonatomic) SetCardSymbolTexture symbolTextureOnCard;
-@property (nonatomic) SetCardSymbolType symbolTypeOnCard;
+@property (nonatomic) SetCardSymbolShape symbolShapeOnCard;
 @end
