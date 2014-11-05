@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "PlayingCard.h"
 
 @interface ViewController ()
 
@@ -24,4 +25,26 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    PlayingCard *somePlayingCard = [[PlayingCard alloc]init];
+    
+    NSLog(@"The value of rank is %li",somePlayingCard.rank);
+    somePlayingCard.rank = 1;
+    NSLog(@"The value of rank is %li",somePlayingCard.rank);
+    
+    somePlayingCard.rank = 55;
+    NSLog(@"The value of rank is %ld",somePlayingCard.rank);
+    
+    somePlayingCard.rank = PlayingCard10;
+    NSLog(@"The value of rank is %ld",somePlayingCard.rank);
+    
+    BOOL boolOp =1;
+    NSLog(@"The value of the boolean is %i",boolOp);
+    boolOp  = 0;
+    NSLog(@"The value of the boolean is %i",boolOp);
+    boolOp = 5;
+    NSLog(@"The value of the boolean is %i",boolOp);
+
+}
 @end

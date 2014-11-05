@@ -11,5 +11,5 @@
 
 @interface Deck : NSObject
 - (Card *)drawRandomCard;
-- (void)addCard:(Card *)anyCard;
+- (void)addCard:(Card *)anyCard; 
 @end
