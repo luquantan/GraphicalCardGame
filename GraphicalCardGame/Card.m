@@ -9,5 +9,14 @@
 #import "Card.h"
 
 @implementation Card
+//These methods are abstract. Their implememtations are located within PlayingCard and SetCard
+- (NSInteger)matchPlayingCards:(NSArray *)playingCards forNumberOfCards:(NSInteger)numberOfCardsToMatch
+{
+    return 0;
+}
+- (NSInteger)matchSetCards:(NSArray *)setCards
+{
+    return 0;
+}
 
 @end

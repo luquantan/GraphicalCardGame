@@ -9,5 +9,12 @@
 #import "PlayingCard.h"
 
 @implementation PlayingCard
-
+- (NSInteger)matchPlayingCards:(NSArray *)playingCards forNumberOfCards:(NSInteger)numberOfCardsToMatch
+{
+    NSInteger scoreFromMatch = 0;
+    
+    //The brains will be in here.
+    
+    return scoreFromMatch;
+}
 @end
