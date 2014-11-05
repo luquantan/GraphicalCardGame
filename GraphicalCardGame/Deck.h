@@ -10,6 +10,8 @@
 #import "Card.h"
 
 @interface Deck : NSObject
+
 - (Card *)drawRandomCard;
-- (void)addCard:(Card *)anyCard; 
+- (void)addCard:(Card *)anyCard;
+- (NSInteger)numberOfCardsLeftInDeck;
 @end
