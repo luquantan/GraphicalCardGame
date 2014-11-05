@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "PlayingCard.h"
+#import "PlayingCardDeck.h"
 
 @interface ViewController ()
 
@@ -36,15 +37,26 @@
     somePlayingCard.rank = 55;
     NSLog(@"The value of rank is %ld",somePlayingCard.rank);
     
-    somePlayingCard.rank = PlayingCard10;
+    somePlayingCard.rank = PlayingCardRanks10;
     NSLog(@"The value of rank is %li",somePlayingCard.rank);
-    NSLog(@"Does playingcard rank = 8? %i",somePlayingCard.rank == PlayingCard10);
+    NSLog(@"Does playingcard rank = 8? %i",somePlayingCard.rank == PlayingCardRanks10);
     BOOL boolOp =1;
     NSLog(@"The value of the boolean is %i",boolOp);
     boolOp  = 0;
     NSLog(@"The value of the boolean is %i",boolOp);
     boolOp = 5;
     NSLog(@"The value of the boolean is %i",boolOp);
-
+    
+    PlayingCardDeck *someDeckOfPlayingCards = [[PlayingCardDeck alloc]init];
+    NSInteger countOfCard = [someDeckOfPlayingCards numberOfCardsLeftInDeck];
+    
+    NSLog(@"The number of cards in the deck is %li",countOfCard);
+    
+    for (int i = 0; i < countOfCard; i++) {
+        Card *card = [someDeckOfPlayingCards drawRandomCard];
+        NSString *contentString = card.contentsOfCard;
+        NSLog(@"The content of this card is %@",contentString);
+    }
+    
 }
 @end

@@ -10,28 +10,28 @@
 
 typedef NS_ENUM(NSInteger, PlayingCardRanks)
 {
-    PLayingCard2,
-    PlayingCard3,
-    PlayingCard4,
-    PlayingCard5,
-    PlayingCard6,
-    PlayingCard7,
-    PlayingCard8,
-    PlayingCard9,
-    PlayingCard10,
-    PlayingCardJ,
-    PlayingCardQ,
-    PlayingCardK,
-    PlayingCardA,
+    PlayingCardRanks2,
+    PlayingCardRanks3,
+    PlayingCardRanks4,
+    PlayingCardRanks5,
+    PlayingCardRanks6,
+    PlayingCardRanks7,
+    PlayingCardRanks8,
+    PlayingCardRanks9,
+    PlayingCardRanks10,
+    PlayingCardRanksJ,
+    PlayingCardRanksQ,
+    PlayingCardRanksK,
+    PlayingCardRanksA,
     PlayingCardRanksCount
 };
 
 typedef NS_ENUM(NSInteger, PlayingCardSuits)
 {
-    PlayingCardDiamond,
-    PlayingCardClub,
-    PlayingCardHeart,
-    PlayingCardSpade,
+    PlayingCardSuitsDiamond,
+    PlayingCardSuitsClub,
+    PlayingCardSuitsHeart,
+    PlayingCardSuitsSpade,
     PlayingCardSuitsCount
 };
 

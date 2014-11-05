@@ -10,7 +10,7 @@
 
 @interface Card : NSObject
 //maybe this is not needed since we are now using ENUMS. And the matching algorithm should stay within the inidividual Cards
-@property (strong,nonatomic) NSString *contentsOfCard;
+@property (copy, nonatomic) NSString *contentsOfCard; //Only for PlayingCard.
 
 @property (nonatomic) BOOL isCardChosen;
 @property (nonatomic) BOOL isCardMatched;
