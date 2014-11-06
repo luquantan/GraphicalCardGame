@@ -32,17 +32,29 @@
 
 - (NSInteger)matchCards:(NSArray *)cards
 {
-    NSInteger scoreFromMatch = 0;
-
-    SetCard *zero = cards[0]; //Force cast it like this, because if I am calling this method, i can be confident that it is a SetCard
-
-    NSLog(@"%li",[cards[1] symbolAmountOnCard]);
+    NSMutableSet *symbolCountSet = [NSMutableSet set];
+    NSMutableSet *symbolColorSet = [NSMutableSet set];
+    NSMutableSet *symbolTextureSet = [NSMutableSet set];
+    NSMutableSet *symbolShapeSet = [NSMutableSet set];
+    for (SetCard *card in cards) {
+        [symbolCountSet addObject:@(card.symbolAmountOnCard)];
+        [symbolColorSet addObject:@(card.symbolColorOnCard)];
+        [symbolTextureSet addObject:@(card.symbolTextureOnCard)];
+        [symbolShapeSet addObject:@(card.symbolShapeOnCard)];
+    }
+    if (!(symbolCountSet.count == 1 || symbolCountSet.count == cards.count)) {
+        return -5;
+    }
+    if (!(symbolColorSet.count == 1 || symbolColorSet.count == cards.count)) {
+        return -5;
+    }
+    if (!(symbolTextureSet.count == 1 || symbolTextureSet.count == cards.count)) {
+        return -5;
+    }
+    if (!(symbolShapeSet.count == 1 || symbolShapeSet.count == cards.count)) {
+        return -5;
+    }
     
-    return scoreFromMatch;
+    return 10;
 }
-
-//They all have the same number, or they have three different numbers.
-//They all have the same symbol, or they have three different symbols.
-//They all have the same shading, or they have three different shadings.
-//They all have the same color, or they have three different colors.
 @end
