@@ -64,7 +64,7 @@
             somePlayingCard.isCardChosen = YES;
             // -1 for currently chosen card
             if (chosenCards.count == numberOfCardsToMatch - 1) {
-                NSInteger scoreFromMatch = [somePlayingCard matchPlayingCards:chosenCards];
+                NSInteger scoreFromMatch = [somePlayingCard matchCards:chosenCards];
                 if (scoreFromMatch > 0) {
                     for (Card *card in chosenCards) {
                         card.isCardMatched = YES;
@@ -95,7 +95,7 @@
             }
             someSetCard.isCardChosen = YES;
             if ([chosenCards count] == 2) {
-                NSInteger scoreFromMatch = [someSetCard matchSetCards:chosenCards];
+                NSInteger scoreFromMatch = [someSetCard matchCards:chosenCards];
                 if (scoreFromMatch > 0) {
                     for (Card *card in chosenCards) {
                         card.isCardMatched = YES;

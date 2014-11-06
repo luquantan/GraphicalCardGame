@@ -11,6 +11,7 @@
 #import "PlayingCardDeck.h"
 #import "SetCardDeck.h"
 #import "SetCard.h"
+#import "Card.h"
 
 @interface ViewController ()
 
@@ -55,25 +56,35 @@
     SetCardDeck *someDeckOfSetCards = [[SetCardDeck alloc]init];
     NSInteger countOfSetCard = [someDeckOfSetCards numberOfCardsLeftInDeck];
     
+    Card *oneCard = [someDeckOfSetCards drawRandomCard];
+    Card *twoCard = [someDeckOfSetCards drawRandomCard];
+    Card *threeCard = [someDeckOfSetCards drawRandomCard];
+    
+    NSArray *arrayToMatch = @[oneCard, twoCard, threeCard];
+    
+    NSInteger score = [oneCard matchCards:arrayToMatch]; //I need an instance of Card to use matchCards, eventhought Im not using the instance in the method. BAD DESIGN =(
+    
+    NSLog(@"The score is %li",score);
+    
     NSLog(@"The number of cards in the deck is %li",countOfSetCard);
     
-    for (int i = 0; i < countOfSetCard; i++) {
-        NSLog(@"The number of cards in SetCardDeck is %li",[someDeckOfSetCards numberOfCardsLeftInDeck]);
-        Card *card = [someDeckOfSetCards drawRandomCard];
-        SetCard *aSetCard = (SetCard *)card;
-        NSString *contentString = [NSString stringWithFormat:@"%ld %ld %ld %ld",aSetCard.symbolAmountOnCard,aSetCard.symbolColorOnCard,aSetCard.symbolTextureOnCard,aSetCard.symbolShapeOnCard];
-        NSLog(@"The content of this card is %@",contentString);
-    }
+//    for (int i = 0; i < countOfSetCard; i++) {
+//        NSLog(@"The number of cards in SetCardDeck is %li",[someDeckOfSetCards numberOfCardsLeftInDeck]);
+//        Card *card = [someDeckOfSetCards drawRandomCard];
+//        SetCard *aSetCard = (SetCard *)card;
+//        NSString *contentString = [NSString stringWithFormat:@"%ld %ld %ld %ld",aSetCard.symbolAmountOnCard,aSetCard.symbolColorOnCard,aSetCard.symbolTextureOnCard,aSetCard.symbolShapeOnCard];
+//        NSLog(@"The content of this card is %@",contentString);
+//    }
     
     PlayingCardDeck *someDeckOfPlayingCards = [[PlayingCardDeck alloc]init];
     NSInteger countOfCard = [someDeckOfPlayingCards numberOfCardsLeftInDeck];
     
-    NSLog(@"The number of cards in the deck is %li",countOfCard);
-    
-    for (int i = 0; i < countOfCard; i++) {
-        Card *card = [someDeckOfPlayingCards drawRandomCard];
-        NSString *contentString = card.contentsOfCard;
-        NSLog(@"The content of this card is %@",contentString);
-    }
+//    NSLog(@"The number of cards in the deck is %li",countOfCard);
+//    
+//    for (int i = 0; i < countOfCard; i++) {
+//        Card *card = [someDeckOfPlayingCards drawRandomCard];
+//        NSString *contentString = card.contentsOfCard;
+//        NSLog(@"The content of this card is %@",contentString);
+//    }
 }
 @end
