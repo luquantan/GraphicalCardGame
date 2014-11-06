@@ -14,12 +14,25 @@
 {
     NSInteger scoreFromMatch = 0;
     
-    //The brains will be in here.
+    for (NSInteger i = 0; i < [playingCards count]; i++) {
+        for (NSInteger j = i + 1; i < [playingCards count]; j++) {
+            PlayingCard *firstCard = (PlayingCard *)playingCards[i];
+            PlayingCard *secondCard = (PlayingCard *)playingCards[j];
+            if (firstCard.rank == secondCard.rank) {
+                scoreFromMatch += 5;
+            } else if (firstCard.suit == secondCard.suit) {
+                scoreFromMatch += 2;
+            }
+        }
+    }
+    
+    
     
     return scoreFromMatch;
 }
 
 //Pull the current value of rank and suit and return both of them as a string
+//This is for display purposes (for the UI), the actual match logic does not require this.
 - (NSString *)contentsOfCard
 {
     NSString *rank;
