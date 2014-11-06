@@ -29,7 +29,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-//Everything in here is only for testing purposes
+//Everything in here is only for testing purposes.
 - (void)viewDidAppear:(BOOL)animated
 {
     PlayingCard *somePlayingCard = [[PlayingCard alloc]init];
@@ -60,6 +60,13 @@
     Card *twoCard = [someDeckOfSetCards drawRandomCard];
     Card *threeCard = [someDeckOfSetCards drawRandomCard];
     
+    SetCard *oneSetCard = (SetCard *)oneCard;
+    SetCard *twoSetCard = (SetCard *)twoCard;
+    SetCard *threeSetCard = (SetCard *)threeCard;
+    
+    NSMutableSet *mSet = [[NSMutableSet alloc]initWithArray:@[@(oneSetCard.symbolShapeOnCard),@(twoSetCard.symbolColorOnCard),@"ssdsd",@(threeSetCard.symbolTextureOnCard)]];
+    NSLog(@"Set : %@",mSet);
+    
     NSArray *arrayToMatch = @[oneCard, twoCard, threeCard];
     
     NSInteger score = [oneCard matchCards:arrayToMatch]; //I need an instance of Card to use matchCards, eventhought Im not using the instance in the method. BAD DESIGN =(
@@ -76,9 +83,9 @@
 //        NSLog(@"The content of this card is %@",contentString);
 //    }
     
-    PlayingCardDeck *someDeckOfPlayingCards = [[PlayingCardDeck alloc]init];
-    NSInteger countOfCard = [someDeckOfPlayingCards numberOfCardsLeftInDeck];
-    
+//    PlayingCardDeck *someDeckOfPlayingCards = [[PlayingCardDeck alloc]init];
+//    NSInteger countOfCard = [someDeckOfPlayingCards numberOfCardsLeftInDeck];
+//    
 //    NSLog(@"The number of cards in the deck is %li",countOfCard);
 //    
 //    for (int i = 0; i < countOfCard; i++) {

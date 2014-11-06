@@ -18,11 +18,11 @@
             PlayingCard *firstCard = cards[i];
             PlayingCard *secondCard = cards[j];
             if (firstCard.rank == secondCard.rank) {
-                scoreFromMatch += 5;
+                scoreFromMatch += 3;
             } else if (firstCard.suit == secondCard.suit) {
-                scoreFromMatch += 2;
+                scoreFromMatch += 1;
             } else if (firstCard.rank != secondCard.rank || firstCard.suit != secondCard.suit) {
-                scoreFromMatch -= 1;
+                return scoreFromMatch -= 2;
             }
         }
     }

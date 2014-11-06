@@ -48,12 +48,13 @@
     return self;
 }
 
-- (void)matchPlayingCardAtIndex:(NSUInteger)index forNumberOfCards:(NSUInteger)numberOfCardsToMatch
+//Remember to set self.numberOfCards
+- (void)matchCardAtIndex:(NSUInteger)index
 {
-    Card *somePlayingCard = [self cardAtIndex:index];
-    if (somePlayingCard.isCardMatched == NO) {
-        if (somePlayingCard.isCardChosen == YES) {
-            somePlayingCard.isCardChosen = NO;
+    Card *chosenCard = [self cardAtIndex:index];
+    if (chosenCard.isCardMatched == NO) {
+        if (chosenCard.isCardChosen == YES) {
+            chosenCard.isCardChosen = NO;
         } else {
             NSMutableArray *chosenCards = [NSMutableArray array];
             for (Card *otherPlayingCard in self.currentDeck) {
@@ -61,46 +62,16 @@
                     [chosenCards addObject:otherPlayingCard];
                 }
             }
-            somePlayingCard.isCardChosen = YES;
-            // -1 for currently chosen card
-            if (chosenCards.count == numberOfCardsToMatch - 1) {
-                NSInteger scoreFromMatch = [somePlayingCard matchCards:chosenCards];
+            chosenCard.isCardChosen = YES;
+            [chosenCards addObject:chosenCard];
+            
+            if (chosenCards.count == self.numberOfCards) {
+                NSInteger scoreFromMatch = [chosenCard matchCards:chosenCards]; //Note: The instance chosenCard is not used in matchCards. But its needed so that the right matchCards is called.
                 if (scoreFromMatch > 0) {
                     for (Card *card in chosenCards) {
                         card.isCardMatched = YES;
                     }
-                    somePlayingCard.isCardMatched = YES;
-                } else if (scoreFromMatch < 0) {
-                    for (Card *card in chosenCards) {
-                        card.isCardChosen = NO;
-                    }
-                }
-            }
-        }
-    }
-}
-
-- (void)matchSetCardAtIndex:(NSUInteger)index
-{
-    Card *someSetCard = [self cardAtIndex:index];
-    if (someSetCard.isCardMatched == NO) {
-        if (someSetCard.isCardChosen == YES) {
-            someSetCard.isCardChosen = NO;
-        } else {
-            NSMutableArray *chosenCards = [NSMutableArray array];
-            for (Card *otherSetCard in self.currentDeck) {
-                if (otherSetCard.isCardChosen && !otherSetCard.isCardMatched) {
-                    [chosenCards addObject:otherSetCard];
-                }
-            }
-            someSetCard.isCardChosen = YES;
-            if ([chosenCards count] == 2) {
-                NSInteger scoreFromMatch = [someSetCard matchCards:chosenCards];
-                if (scoreFromMatch > 0) {
-                    for (Card *card in chosenCards) {
-                        card.isCardMatched = YES;
-                    }
-                    someSetCard.isCardMatched = YES;
+                    chosenCard.isCardMatched = YES;
                 } else if (scoreFromMatch < 0) {
                     for (Card *card in chosenCards) {
                         card.isCardChosen = NO;
@@ -121,4 +92,68 @@
         return nil;
     }
 }
+//- (void)matchPlayingCardAtIndex:(NSUInteger)index forNumberOfCards:(NSUInteger)numberOfCardsToMatch
+//{
+//    Card *somePlayingCard = [self cardAtIndex:index];
+//    if (somePlayingCard.isCardMatched == NO) {
+//        if (somePlayingCard.isCardChosen == YES) {
+//            somePlayingCard.isCardChosen = NO;
+//        } else {
+//            NSMutableArray *chosenCards = [NSMutableArray array];
+//            for (Card *otherPlayingCard in self.currentDeck) {
+//                if (otherPlayingCard.isCardChosen && !otherPlayingCard.isCardMatched) {
+//                    [chosenCards addObject:otherPlayingCard];
+//                }
+//            }
+//            somePlayingCard.isCardChosen = YES;
+//            // -1 for currently chosen card
+//            if (chosenCards.count == numberOfCardsToMatch - 1) {
+//                NSInteger scoreFromMatch = [somePlayingCard matchCards:chosenCards];
+//                if (scoreFromMatch > 0) {
+//                    for (Card *card in chosenCards) {
+//                        card.isCardMatched = YES;
+//                    }
+//                    somePlayingCard.isCardMatched = YES;
+//                } else if (scoreFromMatch < 0) {
+//                    for (Card *card in chosenCards) {
+//                        card.isCardChosen = NO;
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
+//
+//- (void)matchSetCardAtIndex:(NSUInteger)index
+//{
+//    Card *someSetCard = [self cardAtIndex:index];
+//    if (someSetCard.isCardMatched == NO) {
+//        if (someSetCard.isCardChosen == YES) {
+//            someSetCard.isCardChosen = NO;
+//        } else {
+//            NSMutableArray *chosenCards = [NSMutableArray array];
+//            for (Card *otherSetCard in self.currentDeck) {
+//                if (otherSetCard.isCardChosen && !otherSetCard.isCardMatched) {
+//                    [chosenCards addObject:otherSetCard];
+//                }
+//            }
+//            someSetCard.isCardChosen = YES;
+//            if ([chosenCards count] == 2) {
+//                NSInteger scoreFromMatch = [someSetCard matchCards:chosenCards];
+//                if (scoreFromMatch > 0) {
+//                    for (Card *card in chosenCards) {
+//                        card.isCardMatched = YES;
+//                    }
+//                    someSetCard.isCardMatched = YES;
+//                } else if (scoreFromMatch < 0) {
+//                    for (Card *card in chosenCards) {
+//                        card.isCardChosen = NO;
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
+
+
 @end

@@ -15,10 +15,10 @@
 {
     self = [super init];
     if (self) {
-        for (NSInteger i = 0; i < 3; i++) {
-            for (NSInteger j = 0; j < 3; j++) {
-                for (NSInteger k = 0; k < 3; k++) {
-                    for (NSInteger l = 0 ; l < 3; l++) {
+        for (NSInteger i = 0; i < SetCardSymbolAmountCount; i++) {
+            for (NSInteger j = 0; j < SetCardSymbolColorCount; j++) {
+                for (NSInteger k = 0; k < SetCardSymbolTextureCount; k++) {
+                    for (NSInteger l = 0 ; l < SetCardSymbolShapeCount; l++) {
                         SetCard *someSetCard = [[SetCard alloc]init];
                         someSetCard.symbolAmountOnCard = i;
                         someSetCard.symbolColorOnCard = j;
