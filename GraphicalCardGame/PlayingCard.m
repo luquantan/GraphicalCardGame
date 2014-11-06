@@ -9,24 +9,21 @@
 #import "PlayingCard.h"
 
 @implementation PlayingCard
-//This method returns the score from the match. The arguments are the array of Cards to be match and the number of cards to match.
-- (NSInteger)matchPlayingCards:(NSArray *)playingCards
+//This method returns the score from the match. The argument is the array of Cards to be matched.
+- (NSInteger)matchCards:(NSArray *)cards
 {
     NSInteger scoreFromMatch = 0;
-    for (NSInteger i = 0; i < [playingCards count]; i++) {
-        for (NSInteger j = i + 1; i < [playingCards count]; j++) {
-            if ([playingCards[i] isKindOfClass:[PlayingCard class]] && [playingCards[j] isKindOfClass:[PlayingCard class]]) {
-                PlayingCard *firstCard = (PlayingCard *)playingCards[i];
-                PlayingCard *secondCard = (PlayingCard *)playingCards[j];
-                if (firstCard.rank == secondCard.rank) {
-                    scoreFromMatch += 5;
-                } else if (firstCard.suit == secondCard.suit) {
-                    scoreFromMatch += 2;
-                }
+    for (NSInteger i = 0; i < [cards count]; i++) {
+        for (NSInteger j = i + 1; j < [cards count]; j++) {
+            PlayingCard *firstCard = cards[i];
+            PlayingCard *secondCard = cards[j];
+            if (firstCard.rank == secondCard.rank) {
+                scoreFromMatch += 5;
+            } else if (firstCard.suit == secondCard.suit) {
+                scoreFromMatch += 2;
             }
         }
     }
-//    
     return scoreFromMatch;
 }
 
@@ -99,9 +96,4 @@
     return [NSString stringWithFormat:@"%@%@", rank, suit];
 }
 
-- (NSInteger)matchCards:(NSArray *)cards
-{
-    NSLog(@"Playing card match not implemented!");
-    return 0;
-}
 @end
