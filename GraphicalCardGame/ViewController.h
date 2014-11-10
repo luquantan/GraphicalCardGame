@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Deck.h"
 
 @interface ViewController : UIViewController
 
+- (Deck *)createDeck;
+- (NSUInteger)numberOfSubviews;
 
 @end
 

@@ -48,6 +48,26 @@
     return self;
 }
 
+- (instancetype)initGameWithFullDeckUsingDeck:(Deck *)someDeck
+{
+    self = [super init];
+    if (self) {
+        while ([someDeck numberOfCardsLeftInDeck]) {
+            Card *someCard = [someDeck drawRandomCard];
+            if (someCard) {
+                [self.currentDeck addObject:someCard];
+            } else {
+                self = nil;
+                NSLog(@"initGameWithNumberOfCards is returning nil - CardMatchingGame.m");
+                break;
+            }
+        }
+    }
+    return self;
+}
+
+
+
 //Remember to set self.numberOfCards
 - (void)matchCardAtIndex:(NSUInteger)index
 {

@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "CardMatchingGame.h"
 #import "PlayingCard.h"
 #import "PlayingCardDeck.h"
 #import "SetCardDeck.h"
@@ -14,19 +15,34 @@
 #import "Card.h"
 
 @interface ViewController ()
-
+@property (strong, nonatomic) CardMatchingGame *currentGame;
+@property (nonatomic) NSInteger score;
 @end
 
 @implementation ViewController
 
+- (CardMatchingGame *)currentGame
+{
+    if (!_currentGame) {
+        _currentGame = [[CardMatchingGame alloc] initGameWithFullDeckUsingDeck:[self createDeck]];
+    }
+    return _currentGame;
+}
+
+//Overwritten in subclass
+- (Deck *)createDeck
+{
+    return nil;
+}
+
+- (NSUInteger)numberOfSubviews
+{
+    return 0;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 //Everything in here is only for testing purposes.

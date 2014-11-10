@@ -14,6 +14,7 @@
 @property (nonatomic, readonly) NSInteger score;
 
 - (instancetype)initGameWithNumberOfCard:(NSUInteger)numberOfCards usingDeck:(Deck *)someDeck;
+- (instancetype)initGameWithFullDeckUsingDeck:(Deck *)someDeck;
 
 - (void)matchCardAtIndex:(NSUInteger)index;
 - (Card *)cardAtIndex:(NSUInteger)index;

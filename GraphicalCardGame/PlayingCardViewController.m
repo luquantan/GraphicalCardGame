@@ -7,36 +7,77 @@
 //
 
 #import "PlayingCardViewController.h"
+#import "CardMatchingGame.h"
 #import "PlayingCard.h"
 #import "PlayingCardDeck.h"
 #import "PlayingCardView.h"
+#import "Grid.h"
 
 
 @interface PlayingCardViewController ()
 @property (weak, nonatomic) IBOutlet PlayingCardView *playingCardView;
-@property (strong,nonatomic) Deck *deck;
+@property (strong, nonatomic) Grid *grid;
+@property   (strong, nonatomic) Deck *currentDeck; // remove warning. This functionalities are in the CardMatchingGame
+@property (strong,nonatomic) CardMatchingGame *currentGame;
 @end
 
 @implementation PlayingCardViewController
-//This deck initializes a PlayingCardDeck specifically
-- (Deck *)deck
+#pragma mark - PlayingCard Game
+- (CardMatchingGame *)currentGame
 {
-    if (!_deck) {
-        _deck = [[PlayingCardDeck alloc]init];
+    if (!_currentGame) {
+        _currentGame = [[CardMatchingGame alloc] initGameWithFullDeckUsingDeck:[self createDeck]];
     }
-    return _deck;
+    return _currentGame;
+}
+
+- (Deck *)createDeck
+{
+    return [[PlayingCardDeck alloc] init];
+}
+
+- (NSUInteger)numberOfSubviews
+{
+    return self.grid.minimumNumberOfCells;
+}
+
+- (Deck *)currentDeck
+{
+    if (!_currentDeck) {
+        _currentDeck = [[PlayingCardDeck alloc]init];
+    }
+    return _currentDeck;
 }
 
 - (void)drawRandomPlayingCard
 {
-    Card *card = [self.deck drawRandomCard];
+    Card *card = [self.currentDeck drawRandomCard];
     if ([card isKindOfClass:[PlayingCard class]]) {
         PlayingCard *playingCard = (PlayingCard *)card;
         self.playingCardView.contents = playingCard.contentsOfCard;
+        
     }
 }
 
-- (void)viewDidLoad {
+#pragma mark - Grid properties
+- (Grid *)grid
+{
+    if (!_grid) {
+        _grid = [[Grid alloc]init];
+    }
+    return _grid;
+}
+
+#pragma mark - Subview Creation
+- (UIView *)createSubview
+{
+    UIView *aView = [[PlayingCardView alloc] init];
+    aView.frame = CGRectMake(0, 0, self.grid.cellSize.width, self.grid.cellSize.height);
+    return aView;
+}
+
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
@@ -45,6 +86,8 @@
 
 }
 
+
+#pragma mark - Gestures
 //Added programmatically
 - (void)addPinchGesture
 {

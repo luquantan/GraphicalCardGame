@@ -78,6 +78,19 @@
     [self setNeedsDisplay];
 }
 
+- (void)setContents:(NSString *)contents
+{
+    _contents = contents;
+    [self setRankAndSuitFromContents];
+}
+- (void)setRankAndSuitFromContents
+{
+    NSArray *componentArray = [self.contents componentsSeparatedByString:@" "];
+    NSString *rankString = [NSString stringWithFormat:@"%@", componentArray[0]];
+    NSString *suitString = [NSString stringWithFormat:@"%@", componentArray[1]];
+    self.rank = rankString;
+    self.suit = suitString;
+}
 #pragma mark - Drawing
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -96,7 +109,8 @@
     
     if (self.faceUp) {
         
-        //This is needs to be changed to fit the way i have defined my public API for PlayingCard and SetCard
+//        NSArray* contentArray = [self.contents componentsSeparatedByCharactersInSet :[NSCharacterSet whitespaceCharacterSet]];
+//        NSString* nospacestring = [contentArray componentsJoinedByString:nil];
         UIImage *faceImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@", self.contents]];
         
         if (faceImage) {
@@ -128,8 +142,9 @@
     //But we still need to scale the fonts depending on the size of the card
     cornerFont = [cornerFont fontWithSize:cornerFont.pointSize * self.cornerScaleFactor];
     
-    NSAttributedString *cornerText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n%@", self.rank, self.suit] attributes:@{NSFontAttributeName : cornerFont, NSParagraphStyleAttributeName : paragraphStyle}];
-    
+    NSMutableAttributedString *cornerText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n%@", self.rank, self.suit]
+                                                                                   attributes:@{NSFontAttributeName : cornerFont, NSParagraphStyleAttributeName : paragraphStyle}];
+
     CGRect textBounds;
     textBounds.origin = CGPointMake(self.cornerOffset, self.cornerOffset);
     textBounds.size = [cornerText size];

@@ -95,7 +95,7 @@
         default:
             break;
     }
-    return [NSString stringWithFormat:@"%@%@", rank, suit];
+    return [NSString stringWithFormat:@"%@ %@", rank, suit];
 }
 
 @end
