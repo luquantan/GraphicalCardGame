@@ -15,7 +15,6 @@
 #import "Card.h"
 
 @interface ViewController ()
-@property (strong, nonatomic) CardMatchingGame *currentGame;
 @property (nonatomic) NSInteger score;
 @end
 

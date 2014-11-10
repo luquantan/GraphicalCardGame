@@ -18,29 +18,10 @@
 @property (weak, nonatomic) IBOutlet PlayingCardView *playingCardView;
 @property (strong, nonatomic) Grid *grid;
 @property   (strong, nonatomic) Deck *currentDeck; // remove warning. This functionalities are in the CardMatchingGame
-@property (strong,nonatomic) CardMatchingGame *currentGame;
 @end
 
 @implementation PlayingCardViewController
-#pragma mark - PlayingCard Game
-- (CardMatchingGame *)currentGame
-{
-    if (!_currentGame) {
-        _currentGame = [[CardMatchingGame alloc] initGameWithFullDeckUsingDeck:[self createDeck]];
-    }
-    return _currentGame;
-}
-
-- (Deck *)createDeck
-{
-    return [[PlayingCardDeck alloc] init];
-}
-
-- (NSUInteger)numberOfSubviews
-{
-    return self.grid.minimumNumberOfCells;
-}
-
+#pragma mark - Testing to show card on view
 - (Deck *)currentDeck
 {
     if (!_currentDeck) {
@@ -59,33 +40,33 @@
     }
 }
 
-#pragma mark - Grid properties
-- (Grid *)grid
+#pragma mark - PlayingCard Game
+- (Deck *)createDeck
 {
-    if (!_grid) {
-        _grid = [[Grid alloc]init];
-    }
-    return _grid;
+    return [[PlayingCardDeck alloc] init];
 }
+
+//- (NSUInteger)numberOfSubviews
+//{
+//    return self.grid.minimumNumberOfCells;
+//}
+
+#pragma mark - Grid properties
+//- (Grid *)grid
+//{
+//    if (!_grid) {
+//        _grid = [[Grid alloc]init];
+//    }
+//    return _grid;
+//}
 
 #pragma mark - Subview Creation
-- (UIView *)createSubview
-{
-    UIView *aView = [[PlayingCardView alloc] init];
-    aView.frame = CGRectMake(0, 0, self.grid.cellSize.width, self.grid.cellSize.height);
-    return aView;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    //This is for testing
-    [self addPinchGesture];
-
-}
-
+//- (UIView *)createSubview
+//{
+//    UIView *aView = [[PlayingCardView alloc] init];
+//    aView.frame = CGRectMake(0, 0, self.grid.cellSize.width, self.grid.cellSize.height);
+//    return aView;
+//}
 
 #pragma mark - Gestures
 //Added programmatically
@@ -116,4 +97,13 @@
 }
 */
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    
+    //This is for testing
+    [self addPinchGesture];
+    
+}
 @end

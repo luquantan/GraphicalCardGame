@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CardMatchingGame.h"
 #import "Deck.h"
 
 @interface ViewController : UIViewController
+@property (strong, nonatomic) CardMatchingGame *currentGame;
 
 - (Deck *)createDeck;
 - (NSUInteger)numberOfSubviews;
