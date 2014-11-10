@@ -14,4 +14,6 @@
 @property (nonatomic) BOOL faceUp;
 
 - (void)pinch:(UIPinchGestureRecognizer *)gesture;
+
+
 @end

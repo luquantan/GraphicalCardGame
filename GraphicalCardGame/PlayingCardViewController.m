@@ -96,6 +96,7 @@
     [self.playingCardView addGestureRecognizer:pinch];
 }
 
+
 //Added with Xcode
 - (IBAction)swipeCard:(UISwipeGestureRecognizer *)sender
 {

@@ -1,4 +1,4 @@
-//
+    //
 //  PlayingCardView.m
 //  GraphicalCardGame
 //
@@ -108,9 +108,7 @@
     [roundedRect stroke];
     
     if (self.faceUp) {
-        
-//        NSArray* contentArray = [self.contents componentsSeparatedByCharactersInSet :[NSCharacterSet whitespaceCharacterSet]];
-//        NSString* nospacestring = [contentArray componentsJoinedByString:nil];
+
         UIImage *faceImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@", self.contents]];
         
         if (faceImage) {
@@ -176,6 +174,7 @@
         gesture.scale = 1.0;
     }
 }
+
 
 #pragma mark - Method to set the scale of the bounding radius for RoundedRect
 //Call this in the view init
