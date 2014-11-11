@@ -104,8 +104,8 @@
             [self.currentGame matchCardAtIndex:chosenButtonIndex];
         }
     }
-    
-    self.scoreLabel.text = [NSString stringWithFormat:@"Score: %li", self.currentGame.score];
+    self.score += self.currentGame.score;
+    self.scoreLabel.text = [NSString stringWithFormat:@"Score: %li", self.score];
     [self.mainViewForPlayingCards.subviews makeObjectsPerformSelector:@selector(updateCard)];
 
 }
