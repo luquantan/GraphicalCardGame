@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="iWZ-pg-Bvl">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Tab Bar Controller-->
@@ -15,8 +16,8 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="Mx8-rl-xhd" kind="relationship" relationship="viewControllers" id="ZJM-PC-fG8"/>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="3i1-6n-DYS"/>
+                        <segue destination="Mx8-rl-xhd" kind="relationship" relationship="viewControllers" id="ZJM-PC-fG8"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QeH-6o-cC9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -35,36 +36,56 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="izG-nS-U58" customClass="PlayingCardView">
-                                <rect key="frame" x="220" y="150" width="160" height="300"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="160" id="S1u-EG-W4K"/>
-                                    <constraint firstAttribute="height" constant="300" id="rEV-2P-ffu"/>
-                                </constraints>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vGm-Ms-Mhx">
+                                <rect key="frame" x="16" y="525" width="58" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pzX-IP-KHY">
+                                <rect key="frame" x="535" y="519" width="49" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Redeal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
-                                    <outletCollection property="gestureRecognizers" destination="QBH-yP-ahF" appends="YES" id="fL7-4t-E6X"/>
+                                    <action selector="redealButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="E4S-Pd-z4q"/>
                                 </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r8o-Ea-A2I">
+                                <rect key="frame" x="16" y="28" width="568" height="483"/>
+                                <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="66B-AV-7yP">
+                                <rect key="frame" x="252" y="519" width="97" height="29"/>
+                                <segments>
+                                    <segment title="Two"/>
+                                    <segment title="Three"/>
+                                </segments>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="izG-nS-U58" secondAttribute="centerX" id="99H-5N-7Ue"/>
-                            <constraint firstAttribute="centerY" secondItem="izG-nS-U58" secondAttribute="centerY" id="f3A-Dc-7Nq"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="vGm-Ms-Mhx" secondAttribute="bottom" constant="8" symbolic="YES" id="487-UC-Vn7"/>
+                            <constraint firstItem="r8o-Ea-A2I" firstAttribute="trailing" secondItem="pzX-IP-KHY" secondAttribute="trailing" id="9HG-dY-SFc"/>
+                            <constraint firstItem="pzX-IP-KHY" firstAttribute="top" secondItem="r8o-Ea-A2I" secondAttribute="bottom" constant="8" symbolic="YES" id="Cda-sg-Sbg"/>
+                            <constraint firstItem="r8o-Ea-A2I" firstAttribute="leading" secondItem="vGm-Ms-Mhx" secondAttribute="leading" id="KZR-6Q-aYE"/>
+                            <constraint firstItem="66B-AV-7yP" firstAttribute="top" secondItem="pzX-IP-KHY" secondAttribute="top" id="Pjs-aM-zVu"/>
+                            <constraint firstItem="vGm-Ms-Mhx" firstAttribute="centerY" secondItem="pzX-IP-KHY" secondAttribute="centerY" id="ipk-Ha-lRl"/>
+                            <constraint firstItem="vGm-Ms-Mhx" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="k8q-Eh-sdS"/>
+                            <constraint firstItem="r8o-Ea-A2I" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="lEl-je-zKO"/>
+                            <constraint firstItem="66B-AV-7yP" firstAttribute="centerX" secondItem="r8o-Ea-A2I" secondAttribute="centerX" id="z1D-EM-MWu"/>
+                            <constraint firstItem="pzX-IP-KHY" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="ziq-td-E3H"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Playing Card" id="9Nb-UL-Jrs"/>
                     <connections>
-                        <outlet property="playingCardView" destination="izG-nS-U58" id="meA-Rl-Ajm"/>
+                        <outlet property="mainViewForPlayingCards" destination="r8o-Ea-A2I" id="FBV-xB-hdu"/>
+                        <outlet property="scoreLabel" destination="vGm-Ms-Mhx" id="eAt-Tt-Qzk"/>
+                        <outlet property="segmentedControl" destination="66B-AV-7yP" id="riG-bH-7Xv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="right" id="QBH-yP-ahF">
-                    <connections>
-                        <action selector="swipeCard:" destination="BYZ-38-t0r" id="LmB-Dx-yrx"/>
-                    </connections>
-                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-408" y="-664"/>
         </scene>

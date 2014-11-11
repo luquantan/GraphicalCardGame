@@ -15,26 +15,32 @@
 @property (nonatomic) CGFloat cornerRadius;
 @property (nonatomic) CGFloat cornerOffset;
 @property (nonatomic) CGFloat faceCardScaleFactor;
+
+//For drawing scaling the pips on the PlayingCards
 @property (nonatomic) NSString *rank; //NSInteger for rank and suit maybe because that is how i defined it in the first place.
 @property (nonatomic) NSString *suit;
 @end
 
 @implementation PlayingCardView
+
 #pragma mark - Initialization
-- (id)initWithFrame:(CGRect)frame
+
+- (instancetype)initWithFrame:(CGRect)frame andPlayingCard:(PlayingCard *)playingCard
 {
     self = [super initWithFrame:frame];
     if (self) {
-        //initialization code
-        
+        self.layer.masksToBounds = YES;
+        self.playingCard = playingCard;
+        self.contents = playingCard.contentsOfCard;
+        [self setup];
     }
     return self;
 }
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
     [self setup];
-    [self setRoundedRectScalingValues];
 }
 
 - (void)setup
@@ -42,6 +48,8 @@
     self.backgroundColor = nil;
     self.opaque = NO;
     self.contentMode = UIViewContentModeRedraw;
+    
+    [self setRoundedRectScalingValues];
 }
 
 #pragma mark - Setting Properties
@@ -127,9 +135,57 @@
 
 - (void)drawPips
 {
+    const float PIP_HOFFSET_PERCENTAGE = 0.165;
+    const float PIP_VOFFSET1_PERCENTAGE = 0.090;
+    const float PIP_VOFFSET2_PERCENTAGE = 0.175;
+    const float PIP_VOFFSET3_PERCENTAGE = 0.270;
     
+    if ([self.rank isEqual: @"A" ] || [self.rank isEqual:@"3" ] || [self.rank isEqual:@"5"] || [self.rank  isEqual: @"9"]) {
+        [self drawPipsWithHorizontalOffset:0 verticalOffset:0 mirroredVertically:NO];
+    }
+    if ([self.rank isEqual: @"6" ] || [self.rank isEqual:@"7" ] || [self.rank isEqual:@"8"] ) {
+        [self drawPipsWithHorizontalOffset:PIP_HOFFSET_PERCENTAGE verticalOffset:0 mirroredVertically:NO];
+    }
+    if ([self.rank isEqual: @"2" ] || [self.rank isEqual:@"3" ] || [self.rank isEqual:@"7"] || [self.rank  isEqual: @"8"] || [self.rank  isEqual: @"10"]) {
+        [self drawPipsWithHorizontalOffset:0 verticalOffset:PIP_VOFFSET2_PERCENTAGE mirroredVertically:![self.rank isEqualToString:@"7"]];
+    }
+    if ([self.rank isEqual: @"4" ] || [self.rank isEqual:@"5" ] || [self.rank isEqual:@"6"] || [self.rank  isEqual: @"7"] || [self.rank  isEqual: @"8"] || [self.rank  isEqual: @"9"] || [self.rank  isEqual: @"10"]) {
+        [self drawPipsWithHorizontalOffset:PIP_HOFFSET_PERCENTAGE verticalOffset:PIP_VOFFSET3_PERCENTAGE mirroredVertically:YES];
+    }
+    if ([self.rank isEqual: @"9" ] || [self.rank isEqual:@"10" ]) {
+        [self drawPipsWithHorizontalOffset:PIP_HOFFSET_PERCENTAGE verticalOffset:PIP_VOFFSET1_PERCENTAGE mirroredVertically:YES];
+    }
+ }
+
+- (void)drawPipsWithHorizontalOffset:(CGFloat)hoffset verticalOffset:(CGFloat)voffset upsideDown:(BOOL)upsideDown
+{
+    const float PIP_FONT_SCALE_FACTOR = 0.012;
+    if (upsideDown) {
+        [self pushContextAndRotateUpsideDown];
+    }
+    CGPoint middle = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
+    UIFont *pipFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    pipFont = [pipFont fontWithSize:[pipFont pointSize] * self.bounds.size.width * PIP_FONT_SCALE_FACTOR];
+    NSAttributedString *attributeSuit = [[NSAttributedString alloc] initWithString:self.suit attributes:@{NSFontAttributeName : pipFont}];
+    CGSize pipSize = [attributeSuit size];
+    CGPoint pipOrigin = CGPointMake(middle.x - pipSize.width/2.0 - hoffset * self.bounds.size.width, middle.y - pipSize.height/2.0 - voffset * self.bounds.size.height);
+    [attributeSuit drawAtPoint:pipOrigin];
+    if (hoffset) {
+        pipOrigin.x += hoffset * 2.0 * self.bounds.size.width;
+        [attributeSuit drawAtPoint:pipOrigin];
+    }
+    if (upsideDown) {
+        [self popContext];
+    }
 }
 
+- (void)drawPipsWithHorizontalOffset:(CGFloat)hoffset verticalOffset:(CGFloat)voffset mirroredVertically:(BOOL)mirroredVertically
+{
+    [self drawPipsWithHorizontalOffset:hoffset verticalOffset:voffset upsideDown:NO];
+    if (mirroredVertically) {
+        [self drawPipsWithHorizontalOffset:hoffset verticalOffset:voffset upsideDown:YES];
+    }
+}
 - (void)drawCorners
 {
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
@@ -167,11 +223,17 @@
 }
 
 #pragma mark - Gestures
-- (void)pinch:(UIPinchGestureRecognizer *)gesture
+
+
+- (void)tap:(UITapGestureRecognizer *)gesture
 {
-    if ((gesture.state == UIGestureRecognizerStateChanged) || (gesture.state == UIGestureRecognizerStateEnded)) {
-        self.faceCardScaleFactor *= gesture.scale;
-        gesture.scale = 1.0;
+    if (!self.playingCard.isCardMatched) {
+        if (gesture.state == UIGestureRecognizerStateEnded) {
+            self.faceUp = !self.faceUp;
+        }
+    } else if (self.playingCard.isCardMatched) {
+        self.alpha = 0.5;
+        [self setNeedsDisplay];
     }
 }
 
@@ -185,6 +247,7 @@
     self.cornerScaleFactor = self.bounds.size.height / CORNER_FONT_STANDARD_HEIGHT;
     self.cornerRadius = CORNER_RADIUS * self.contentScaleFactor;
     self.cornerOffset = self.cornerRadius / 3.0;
+    
 }
                                  
 @end

@@ -66,7 +66,15 @@
     return self;
 }
 
+- (NSInteger)numberOfCardsInCurrentDeck
+{
+    return [self.currentDeck count];
+}
 
+- (Card *)drawCardFromCurrentDeckWithIndex:(NSUInteger)index
+{
+    return [self.currentDeck objectAtIndex:index];
+}
 
 //Remember to set self.numberOfCards
 - (void)matchCardAtIndex:(NSUInteger)index
@@ -112,6 +120,14 @@
         return nil;
     }
 }
+
+- (NSUInteger)indexThatMatchesCard:(Card *)someCard
+{
+    return [self.currentDeck indexOfObjectIdenticalTo:someCard];
+}
+
+
+
 //- (void)matchPlayingCardAtIndex:(NSUInteger)index forNumberOfCards:(NSUInteger)numberOfCardsToMatch
 //{
 //    Card *somePlayingCard = [self cardAtIndex:index];

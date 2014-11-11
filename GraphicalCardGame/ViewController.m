@@ -16,6 +16,7 @@
 
 @interface ViewController ()
 @property (nonatomic) NSInteger score;
+@property (strong,nonatomic) CardMatchingGame *currentGame;
 @end
 
 @implementation ViewController
@@ -27,6 +28,14 @@
     }
     return _currentGame;
 }
+
+//- (CardMatchingGame *)currentGame
+//{
+//    if (!_currentGame) {
+//        _currentGame = [[CardMatchingGame alloc] initGameWithNumberOfCard:self.currentGame.numberOfCards usingDeck:[self createDeck]];
+//    }
+//    return _currentGame;
+//}
 
 //Overwritten in subclass
 - (Deck *)createDeck

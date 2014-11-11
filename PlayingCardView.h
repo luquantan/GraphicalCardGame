@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PlayingCardView : UIView
+@class PlayingCard;
 
+@interface PlayingCardView : UIView
+@property (strong, nonatomic) PlayingCard *playingCard;
 @property (strong,nonatomic) NSString *contents;
 @property (nonatomic) BOOL faceUp;
 
-- (void)pinch:(UIPinchGestureRecognizer *)gesture;
-
+- (void)tap:(UITapGestureRecognizer *)gesture;
+- (instancetype)initWithFrame:(CGRect)frame andPlayingCard:(PlayingCard *)playingCard;
 
 @end
