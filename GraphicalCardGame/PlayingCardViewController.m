@@ -20,6 +20,7 @@
 @property (strong, nonatomic) CardMatchingGame *currentGame;
 @property (strong, nonatomic) Grid *grid;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+@property (nonatomic) NSInteger score;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 
 
@@ -32,7 +33,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+
 }
 
 - (CardMatchingGame *)currentGame
@@ -76,8 +77,7 @@
             PlayingCard *playingCard = (PlayingCard *)[self.currentGame drawCardFromCurrentDeckWithIndex:count];
             PlayingCardView *playingCardView = [[PlayingCardView alloc] initWithFrame:[self.grid frameOfCellAtRow:i inColumn:j] andPlayingCard:playingCard];
             UITapGestureRecognizer *tapRecognizer = [UITapGestureRecognizer new];
-            [tapRecognizer addTarget:playingCardView action:@selector(tap:)];
-            [tapRecognizer addTarget:self action:@selector(whenViewTapIsRecognized:)];
+            [tapRecognizer addTarget:self action:@selector(handleTap:)];
             tapRecognizer.numberOfTapsRequired = 1;
             [playingCardView addGestureRecognizer:tapRecognizer];
             [self.mainViewForPlayingCards addSubview:playingCardView];
@@ -87,10 +87,9 @@
 }
 
 //Remember: need a way to match the index of the view and the index of the card(in currentDeck) being shown.
-- (void)whenViewTapIsRecognized:(UITapGestureRecognizer *)tapSender
+- (void)handleTap:(UITapGestureRecognizer *)tapSender
 {
-    CGPoint pointAtSubview = [tapSender locationInView:self.mainViewForPlayingCards];
-    UIView *tappedSubview = [self.mainViewForPlayingCards hitTest:pointAtSubview withEvent:nil];
+    UIView *tappedSubview = tapSender.view;
     if ([tappedSubview isKindOfClass:[PlayingCardView class]]) {
         PlayingCardView *tappedPlayingCardSubview = (PlayingCardView *)tappedSubview;
         NSUInteger chosenButtonIndex = [self.currentGame indexThatMatchesCard:tappedPlayingCardSubview.playingCard];
@@ -105,6 +104,10 @@
             [self.currentGame matchCardAtIndex:chosenButtonIndex];
         }
     }
+    
+    self.scoreLabel.text = [NSString stringWithFormat:@"Score: %li", self.currentGame.score];
+    [self.mainViewForPlayingCards.subviews makeObjectsPerformSelector:@selector(updateCard)];
+
 }
 
 - (IBAction)redealButtonPressed:(UIButton *)sender

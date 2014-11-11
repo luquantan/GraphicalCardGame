@@ -67,8 +67,8 @@
                         <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="vGm-Ms-Mhx" secondAttribute="bottom" constant="8" symbolic="YES" id="487-UC-Vn7"/>
+                            <constraint firstItem="66B-AV-7yP" firstAttribute="top" secondItem="r8o-Ea-A2I" secondAttribute="bottom" constant="8" symbolic="YES" id="6vg-1J-00c"/>
                             <constraint firstItem="r8o-Ea-A2I" firstAttribute="trailing" secondItem="pzX-IP-KHY" secondAttribute="trailing" id="9HG-dY-SFc"/>
-                            <constraint firstItem="pzX-IP-KHY" firstAttribute="top" secondItem="r8o-Ea-A2I" secondAttribute="bottom" constant="8" symbolic="YES" id="Cda-sg-Sbg"/>
                             <constraint firstItem="r8o-Ea-A2I" firstAttribute="leading" secondItem="vGm-Ms-Mhx" secondAttribute="leading" id="KZR-6Q-aYE"/>
                             <constraint firstItem="66B-AV-7yP" firstAttribute="top" secondItem="pzX-IP-KHY" secondAttribute="top" id="Pjs-aM-zVu"/>
                             <constraint firstItem="vGm-Ms-Mhx" firstAttribute="centerY" secondItem="pzX-IP-KHY" secondAttribute="centerY" id="ipk-Ha-lRl"/>

@@ -90,11 +90,12 @@
                     [chosenCards addObject:otherPlayingCard];
                 }
             }
-            chosenCard.isCardChosen = YES;
+            
             [chosenCards addObject:chosenCard];
             
             if (chosenCards.count == self.numberOfCards) {
                 NSInteger scoreFromMatch = [chosenCard matchCards:chosenCards]; //Note: The instance chosenCard is not used in matchCards. But its needed so that the right matchCards is called.
+                self.score = scoreFromMatch;
                 if (scoreFromMatch > 0) {
                     for (Card *card in chosenCards) {
                         card.isCardMatched = YES;
@@ -106,6 +107,7 @@
                     }
                 }
             }
+            chosenCard.isCardChosen = YES;
         }
     }
 }

@@ -21,8 +21,8 @@
                 scoreFromMatch += 3;
             } else if (firstCard.suit == secondCard.suit) {
                 scoreFromMatch += 1;
-            } else if (firstCard.rank != secondCard.rank || firstCard.suit != secondCard.suit) {
-                return scoreFromMatch -= 2;
+            } else if (firstCard.rank != secondCard.rank && firstCard.suit != secondCard.suit) {
+                return scoreFromMatch -= 1;
             }
         }
     }

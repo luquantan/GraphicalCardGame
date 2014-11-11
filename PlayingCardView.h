@@ -15,7 +15,8 @@
 @property (strong,nonatomic) NSString *contents;
 @property (nonatomic) BOOL faceUp;
 
-- (void)tap:(UITapGestureRecognizer *)gesture;
+//- (void)tap:(UITapGestureRecognizer *)gesture;
+- (void)updateCard;
 - (instancetype)initWithFrame:(CGRect)frame andPlayingCard:(PlayingCard *)playingCard;
 
 @end

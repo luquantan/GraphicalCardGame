@@ -99,6 +99,7 @@
     self.rank = rankString;
     self.suit = suitString;
 }
+
 #pragma mark - Drawing
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -222,20 +223,27 @@
     CGContextRestoreGState(UIGraphicsGetCurrentContext());
 }
 
+
 #pragma mark - Gestures
-
-
-- (void)tap:(UITapGestureRecognizer *)gesture
+- (void)updateCard
 {
-    if (!self.playingCard.isCardMatched) {
-        if (gesture.state == UIGestureRecognizerStateEnded) {
-            self.faceUp = !self.faceUp;
-        }
-    } else if (self.playingCard.isCardMatched) {
+    self.faceUp = self.playingCard.isCardChosen;
+   if (self.playingCard.isCardMatched) {
         self.alpha = 0.5;
-        [self setNeedsDisplay];
     }
 }
+
+//- (void)tap:(UITapGestureRecognizer *)gesture
+//{
+//    if (!self.playingCard.isCardMatched) {
+//        if (gesture.state == UIGestureRecognizerStateEnded) {
+//            self.faceUp = self.playingCard.isCardChosen;
+//        }
+//    } else if (self.playingCard.isCardMatched) {
+//        self.alpha = 0.5;
+////        [self setNeedsDisplay];
+//    }
+//}
 
 
 #pragma mark - Method to set the scale of the bounding radius for RoundedRect
