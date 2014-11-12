@@ -29,12 +29,6 @@
     return self;
 }
 
-- (void)awakeFromNib
-{
-    [super awakeFromNib];
-    [self setup];
-}
-
 - (void)setup
 {
 //    self.backgroundColor = nil;
@@ -68,7 +62,74 @@
     [roundedRect fill];
     [[UIColor blackColor] setStroke];
     [roundedRect stroke];
+
     
+    [self drawCircleWithColor:self.setCard.symbolColorOnCard withTexture:self.setCard.symbolTextureOnCard];
+}
+
+- (void)drawSetCard
+{
+    
+}
+
+- (void)drawSquiggleWithColor:(SetCardSymbolColor)symbolColor withTexture:(SetCardSymbolTexture)symbolTexture
+{
+    //Implement UIBezierPath as such to create this
+}
+
+- (void)drawDiamondWithColor:(SetCardSymbolColor)symbolColor withTexture:(SetCardSymbolTexture)symbolTexture
+{
+    //Implement UIBezierPath as such to create this
+}
+
+- (void)drawCircleWithColor:(SetCardSymbolColor)symbolColor withTexture:(SetCardSymbolTexture)symbolTexture
+{
+    CGPoint center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+    UIBezierPath *drawCricle = [UIBezierPath bezierPathWithArcCenter:center radius:25.0 startAngle:-M_PI endAngle:M_PI clockwise:YES];
+    [[self symbolColorForEnum:symbolColor] setStroke];
+    drawCricle.lineWidth = 3.5;
+    [drawCricle stroke];
+}
+
+#pragma mark - Helper Methods to return stuff i need from the ENUMS
+//This method will return the color of the card depending on the property of the card as represented by the enum
+//Note: the (default: break)is needed because the last countVariable in the enum has to be accounted for.
+- (UIColor *)symbolColorForEnum:(enum SetCardSymbolColor)symbolColor                   //Maybe I can move this to the view later
+{
+    UIColor *colorForCard;
+    switch (symbolColor) {
+        case SetCardSymbolColor1:
+            colorForCard = [UIColor redColor];
+            break;
+        case SetCardSymbolColor2:
+            colorForCard = [UIColor purpleColor];
+            break;
+        case SetCardSymbolColor3:
+            colorForCard = [UIColor greenColor];
+            break;
+        default:
+            break;
+    }
+    return colorForCard;
+}
+
+-(NSInteger)symbolAmountForEnum:(enum SetCardSymbolAmount)symbolAmount
+{
+    NSInteger amount;
+    switch (symbolAmount) {
+        case SetCardSymbolAmount1:
+            amount = 1;
+            break;
+        case SetCardSymbolAmount2:
+            amount = 2;
+            break;
+        case SetCardSymbolAmount3:
+            amount = 3;
+            break;
+        default:
+            break;
+    }
+    return amount;
 }
 
 

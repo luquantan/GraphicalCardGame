@@ -78,10 +78,8 @@
             count++;
             if (count == [self.deckInPlay count]) {
                 break;
+                break;
             }
-        }
-        if (count == [self.deckInPlay count]) {
-            break;
         }
     }
 }

@@ -36,12 +36,6 @@
     return self;
 }
 
-- (void)awakeFromNib
-{
-    [super awakeFromNib];
-    [self setup];
-}
-
 - (void)setup
 {
     self.backgroundColor = nil;
@@ -57,7 +51,7 @@
 {
     const CGFloat CORNER_FONT_STANDARD_HEIGHT = 180.0;
     const CGFloat CORNER_RADIUS = 5.0;
-    self.cornerScaleFactor = self.bounds.size.height / CORNER_FONT_STANDARD_HEIGHT;
+    self.cornerScaleFactor = self. bounds.size.height / CORNER_FONT_STANDARD_HEIGHT;
     self.cornerRadius = CORNER_RADIUS * self.contentScaleFactor;
     self.cornerOffset = self.cornerRadius / 3.0;
     

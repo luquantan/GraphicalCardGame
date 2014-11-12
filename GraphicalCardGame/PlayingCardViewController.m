@@ -82,6 +82,10 @@
             [playingCardView addGestureRecognizer:tapRecognizer];
             [self.mainViewForPlayingCards addSubview:playingCardView];
             count++;
+            if (count >= self.grid.minimumNumberOfCells) {
+                break;
+                break;
+            }
         }
     }
 }
