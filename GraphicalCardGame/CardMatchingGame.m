@@ -80,12 +80,11 @@
 - (void)matchCardAtIndex:(NSUInteger)index
 {
     Card *chosenCard = [self cardAtIndex:index];
+    self.score = 0;
     if (chosenCard.isCardMatched == NO) {
         if (chosenCard.isCardChosen == YES) {
             chosenCard.isCardChosen = NO;
-            self.score = 0;
         } else {
-            self.score = 0;
             NSMutableArray *chosenCards = [NSMutableArray array];
             for (Card *otherPlayingCard in self.currentDeck) {
                 if (otherPlayingCard.isCardChosen && !otherPlayingCard.isCardMatched) {

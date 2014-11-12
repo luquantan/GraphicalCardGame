@@ -104,6 +104,7 @@
             [self.currentGame matchCardAtIndex:chosenButtonIndex];
         }
     }
+    self.segmentedControl.enabled = NO;
     self.score += self.currentGame.score;
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %li", self.score];
     [self.mainViewForPlayingCards.subviews makeObjectsPerformSelector:@selector(updateCard)];
@@ -113,6 +114,7 @@
 - (IBAction)redealButtonPressed:(UIButton *)sender
 {
     self.currentGame = nil;
+    self.segmentedControl.enabled = YES;
     [self.mainViewForPlayingCards.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [self populateGridWithPlayingCardsFromDeck];
 }

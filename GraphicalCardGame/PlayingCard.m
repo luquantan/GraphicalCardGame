@@ -18,7 +18,7 @@
             PlayingCard *firstCard = cards[i];
             PlayingCard *secondCard = cards[j];
             if (firstCard.rank == secondCard.rank) {
-                scoreFromMatch += 5;
+                scoreFromMatch += 5 ;
             } else if (firstCard.suit == secondCard.suit) {
                 scoreFromMatch += 3;
             } else if (firstCard.rank != secondCard.rank && firstCard.suit != secondCard.suit) {
