@@ -10,7 +10,7 @@
 
 @class PlayingCard;
 
-@interface PlayingCardView : UIView
+@interface PlayingCardView : UIView 
 @property (strong, nonatomic) PlayingCard *playingCard;
 @property (strong,nonatomic) NSString *contents;
 @property (nonatomic) BOOL faceUp;

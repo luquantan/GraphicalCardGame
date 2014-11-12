@@ -8,27 +8,27 @@
 
 #import "PlayingCardViewController.h"
 #import "CardMatchingGame.h"
-#import "PlayingCard.h"
 #import "PlayingCardDeck.h"
 #import "PlayingCardView.h"
 #import "Grid.h"
 #import "ColorBoxView.h"
 
 @interface PlayingCardViewController ()
+//Views
 @property (weak, nonatomic) IBOutlet UIView *mainViewForPlayingCards;
 @property (weak, nonatomic) IBOutlet PlayingCardView *playingCardView;
-@property (strong, nonatomic) CardMatchingGame *currentGame;
 @property (strong, nonatomic) Grid *grid;
-@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+
+//Game
+@property (strong, nonatomic) CardMatchingGame *currentGame;
 @property (nonatomic) NSInteger score;
+
+//View Outlets/Actions
+@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
-
-
-
 @end
 
 @implementation PlayingCardViewController
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -56,12 +56,13 @@
     return _grid;
 }
 
+//Call populateGridWithPlayingCardsFromDeck here.
+//Reason: Need to make sure the view has loaded before trying to draw the cards on it.
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [self populateGridWithPlayingCardsFromDeck];
 }
-
 
 #pragma mark - PlayingCard Game
 - (Deck *)createDeck
@@ -86,13 +87,22 @@
     }
 }
 
+- (IBAction)redealButtonPressed:(UIButton *)sender
+{
+    self.currentGame = nil;
+    self.segmentedControl.enabled = YES;
+    [self.mainViewForPlayingCards.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [self populateGridWithPlayingCardsFromDeck];
+}
+
+#pragma mark - Gestures
 //Remember: need a way to match the index of the view and the index of the card(in currentDeck) being shown.
 - (void)handleTap:(UITapGestureRecognizer *)tapSender
 {
     UIView *tappedSubview = tapSender.view;
     if ([tappedSubview isKindOfClass:[PlayingCardView class]]) {
         PlayingCardView *tappedPlayingCardSubview = (PlayingCardView *)tappedSubview;
-        NSUInteger chosenButtonIndex = [self.currentGame indexThatMatchesCard:tappedPlayingCardSubview.playingCard];
+        NSUInteger chosenButtonIndex = [self.currentGame indexThatMatchesCard:(Card *)tappedPlayingCardSubview.playingCard];
         
         NSLog(@"%lu", chosenButtonIndex);
         
@@ -108,25 +118,10 @@
     self.score += self.currentGame.score;
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %li", self.score];
     [self.mainViewForPlayingCards.subviews makeObjectsPerformSelector:@selector(updateCard)];
-
 }
 
-- (IBAction)redealButtonPressed:(UIButton *)sender
-{
-    self.currentGame = nil;
-    self.segmentedControl.enabled = YES;
-    [self.mainViewForPlayingCards.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    [self populateGridWithPlayingCardsFromDeck];
-}
-
-
-
-
-#pragma mark - Gestures
-
-/*
 #pragma mark - Navigation
-
+/*
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].

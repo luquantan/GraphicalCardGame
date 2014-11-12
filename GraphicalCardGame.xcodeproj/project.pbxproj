@@ -122,8 +122,6 @@
 				D976B22E1A0934DB000877AF /* Main.storyboard */,
 				D9C3A7AB1A1152C300F243F0 /* ColorBoxView.h */,
 				D9C3A7AC1A1152C300F243F0 /* ColorBoxView.m */,
-				D976B2731A0C1786000877AF /* Grid.h */,
-				D976B2741A0C1786000877AF /* Grid.m */,
 				D9C3A7AE1A126E9B00F243F0 /* Views */,
 				D976B27A1A0C2363000877AF /* ViewControllers */,
 				D976B2791A0C2331000877AF /* Model */,
@@ -197,6 +195,8 @@
 		D9C3A7AE1A126E9B00F243F0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D976B2731A0C1786000877AF /* Grid.h */,
+				D976B2741A0C1786000877AF /* Grid.m */,
 				D9C3A7A81A0D14D000F243F0 /* PlayingCardView.h */,
 				D9C3A7A91A0D14D000F243F0 /* PlayingCardView.m */,
 			);

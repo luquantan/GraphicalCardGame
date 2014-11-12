@@ -227,11 +227,19 @@
 #pragma mark - Gestures
 - (void)updateCard
 {
-    self.faceUp = self.playingCard.isCardChosen;
-   if (self.playingCard.isCardMatched) {
-        self.alpha = 0.5;
+//    [UIView transitionWithView:self duration:1.0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        self.faceUp = self.playingCard.isCardChosen;
+//    } completion:^(BOOL finished) {
+//        //
+//    }];
+    
+    if (self.playingCard.isCardMatched) {
+        [UIView animateWithDuration:1.0 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+            self.alpha = 0.5;
+        } completion:nil];
     }
 }
+
 
 //- (void)tap:(UITapGestureRecognizer *)gesture
 //{
