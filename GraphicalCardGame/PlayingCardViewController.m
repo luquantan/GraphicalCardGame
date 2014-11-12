@@ -89,6 +89,7 @@
 - (IBAction)redealButtonPressed:(UIButton *)sender
 {
     self.currentGame = nil;
+    self.scoreLabel.text = @"Score: 0";
     self.segmentedControl.enabled = YES;
     [self.mainViewForPlayingCards.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [self populateGridWithPlayingCardsFromDeck];

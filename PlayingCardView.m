@@ -24,12 +24,11 @@
 @implementation PlayingCardView
 
 #pragma mark - Initialization
-
+//
 - (instancetype)initWithFrame:(CGRect)frame andPlayingCard:(PlayingCard *)playingCard
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.layer.masksToBounds = YES;
         self.playingCard = playingCard;
         self.contents = playingCard.contentsOfCard;
         [self setup];
@@ -47,9 +46,21 @@
 {
     self.backgroundColor = nil;
     self.opaque = NO;
-    self.contentMode = UIViewContentModeRedraw;
+//    self.contentMode = UIViewContentModeRedraw;
     
     [self setRoundedRectScalingValues];
+}
+
+#pragma mark - Method to set the scale of the bounding radius for RoundedRect
+//Call this in the view init
+- (void)setRoundedRectScalingValues
+{
+    const CGFloat CORNER_FONT_STANDARD_HEIGHT = 180.0;
+    const CGFloat CORNER_RADIUS = 5.0;
+    self.cornerScaleFactor = self.bounds.size.height / CORNER_FONT_STANDARD_HEIGHT;
+    self.cornerRadius = CORNER_RADIUS * self.contentScaleFactor;
+    self.cornerOffset = self.cornerRadius / 3.0;
+    
 }
 
 #pragma mark - Setting Properties
@@ -223,7 +234,6 @@
     CGContextRestoreGState(UIGraphicsGetCurrentContext());
 }
 
-
 #pragma mark - Gestures
 - (void)updateCard
 {
@@ -254,16 +264,6 @@
 //}
 
 
-#pragma mark - Method to set the scale of the bounding radius for RoundedRect
-//Call this in the view init
-- (void)setRoundedRectScalingValues
-{
-    const CGFloat CORNER_FONT_STANDARD_HEIGHT = 180.0;
-    const CGFloat CORNER_RADIUS = 5.0;
-    self.cornerScaleFactor = self.bounds.size.height / CORNER_FONT_STANDARD_HEIGHT;
-    self.cornerRadius = CORNER_RADIUS * self.contentScaleFactor;
-    self.cornerOffset = self.cornerRadius / 3.0;
-    
-}
+
                                  
 @end

@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SetCardView : UIView
+@class SetCard;
 
+@interface SetCardView : UIView
+@property (strong, nonatomic) SetCard *setCard;
+@property (nonatomic) BOOL selected;
+
+- (void)updateCard;
+- (instancetype)initWithFrame:(CGRect)frame andSetCard:(SetCard *)setCard;
 @end

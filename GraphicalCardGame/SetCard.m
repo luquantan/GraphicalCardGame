@@ -30,6 +30,25 @@
     return colorForCard;
 }
 
+-(NSInteger)amountForCard
+{
+    NSInteger amount;
+    switch (self.symbolAmountOnCard) {
+        case SetCardSymbolAmount1:
+            amount = 1;
+            break;
+        case SetCardSymbolAmount2:
+            amount = 2;
+            break;
+        case SetCardSymbolAmount3:
+            amount = 3;
+            break;
+        default:
+            break;
+    }
+    return amount;
+}
+
 - (NSInteger)matchCards:(NSArray *)cards
 {
     NSMutableSet *symbolCountSet = [NSMutableSet set];

@@ -61,8 +61,36 @@
     return _grid;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self populateGridWithSetCardsFromDeck];
+}
+
+- (void)populateGridWithSetCardsFromDeck
+{
+    NSInteger count = 0;
+    for (NSUInteger i = 0; i < self.grid.rowCount; i++) {
+        for (NSUInteger j = 0; j < self.grid.columnCount; j++) {
+            SetCard *setCard = (SetCard *)[self.currentGame drawCardFromCurrentDeckWithIndex:count];
+            SetCardView *setCardView = [[SetCardView alloc] initWithFrame:[self.grid frameOfCellAtRow:i inColumn:j] andSetCard:setCard];
+            [self.mainViewForSetCard addSubview:setCardView];
+            count++;
+            if (count == [self.deckInPlay count]) {
+                break;
+            }
+        }
+        if (count == [self.deckInPlay count]) {
+            break;
+        }
+    }
+}
+
+#pragma mark - SetCard Game
 - (IBAction)redealButtonPressed:(UIButton *)sender
 {
+    //Reset the Game and any previous cards/score
+    //However, should have a gesture recognizer to add more cards into the deckInPlay.
 }
 
 - (void)viewDidLoad {
