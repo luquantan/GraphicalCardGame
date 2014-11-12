@@ -30,11 +30,11 @@
     return nil;
 }
 
-- (instancetype)initGameWithNumberOfCard:(NSUInteger)numberOfCards usingDeck:(Deck *)someDeck
+- (instancetype)initGameWithNumberOfCard:(NSUInteger)amountOfCards usingDeck:(Deck *)someDeck
 {
     self = [super init];
     if (self) {
-        for (NSUInteger i = 0; i < numberOfCards; i++) {
+        for (NSUInteger i = 0; i < amountOfCards; i++) {
             Card *someCard = [someDeck drawRandomCard];
             if (someCard) {
                 [self.currentDeck addObject:someCard];
@@ -74,6 +74,17 @@
 - (Card *)drawCardFromCurrentDeckWithIndex:(NSUInteger)index
 {
     return [self.currentDeck objectAtIndex:index];
+}
+
+- (NSMutableArray *)drawCardsFromCurrentDeckWithAmount:(NSInteger)amount
+{
+    NSMutableArray *mutableArray = [[NSMutableArray alloc] init];
+    for (NSUInteger i = 0; i < amount; i++) {
+        [mutableArray addObject:[self.currentDeck objectAtIndex:i]];
+        [self.currentDeck removeObjectAtIndex:i];
+    }
+    return mutableArray;
+    
 }
 
 //Remember to set self.numberOfCards

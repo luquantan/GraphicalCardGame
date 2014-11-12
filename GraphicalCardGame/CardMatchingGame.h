@@ -23,7 +23,8 @@
 - (void)matchCardAtIndex:(NSUInteger)index;
 - (Card *)cardAtIndex:(NSUInteger)index;
 - (Card *)drawCardFromCurrentDeckWithIndex:(NSUInteger)index;
+- (NSMutableArray *)drawCardsFromCurrentDeckWithAmount:(NSInteger)amount;
 - (NSUInteger)indexThatMatchesCard:(Card *)someCard;
 //- (void)matchPlayingCardAtIndex:(NSUInteger)index forNumberOfCards:(NSUInteger)numberOfCardsToMatch;
 //- (void)matchSetCardAtIndex:(NSUInteger)index;
-@end
+@end 

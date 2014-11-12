@@ -16,7 +16,6 @@
 @interface PlayingCardViewController ()
 //Views
 @property (weak, nonatomic) IBOutlet UIView *mainViewForPlayingCards;
-@property (weak, nonatomic) IBOutlet PlayingCardView *playingCardView;
 @property (strong, nonatomic) Grid *grid;
 
 //Game
