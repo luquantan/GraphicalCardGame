@@ -98,9 +98,9 @@
     [roundedRect fill];
     [[UIColor blackColor] setStroke];
     [roundedRect stroke];
-
     
-    [self drawRoundedRectWithColor:self.setCard.symbolColorOnCard withTexture:self.setCard.symbolTextureOnCard];
+    
+    [self drawDiamondWithColor:self.setCard.symbolColorOnCard withTexture:self.setCard.symbolTextureOnCard];
 }
 
 - (void)drawSetCard
@@ -116,7 +116,17 @@
 
 - (void)drawDiamondWithColor:(SetCardSymbolColor)symbolColor withTexture:(SetCardSymbolTexture)symbolTexture
 {
-    //Implement UIBezierPath as such to create this
+    UIBezierPath *drawDiamond = [[UIBezierPath alloc] init];
+    [drawDiamond moveToPoint:CGPointMake(self.centerX, (self.centerY + (self.boundingHeight / 2)))];
+    [drawDiamond addLineToPoint:CGPointMake((self.centerX + (self.boundingWidth / 2)), self.centerY)];
+    [drawDiamond addLineToPoint:CGPointMake(self.centerX, (self.centerY - (self.boundingHeight / 2)))];
+    [drawDiamond addLineToPoint:CGPointMake((self.centerX - (self.boundingWidth / 2)), self.centerY)];
+    [drawDiamond closePath];
+    [drawDiamond addClip];
+    [[self symbolColorForEnum:symbolColor] setStroke];
+    [[self symbolColorForEnum:symbolColor] setFill];
+    drawDiamond.lineWidth = 5.5;
+    [drawDiamond stroke];
     [self createSymbolWithTexture:symbolTexture];
 }
 
@@ -129,10 +139,6 @@
     drawRoundRect.lineWidth = 5.5;
     [drawRoundRect stroke];
     
-//    for (float i = 0.000000; i <= 5.000000; i += 1.000000){
-//        NSLog(@"The value of the float in the loop is %f",i);
-//    }
-
     [self createSymbolWithTexture:symbolTexture];
 
     
