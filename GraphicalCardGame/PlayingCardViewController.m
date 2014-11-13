@@ -73,6 +73,7 @@
 {
     NSInteger count = 0;
     for (NSUInteger i = 0; i < self.grid.rowCount; i++) {
+        BOOL shouldBreak = NO;
         for (NSUInteger j = 0; j < self.grid.columnCount; j++) {
             PlayingCard *playingCard = (PlayingCard *)[self.currentGame drawCardFromCurrentDeckWithIndex:count];
             PlayingCardView *playingCardView = [[PlayingCardView alloc] initWithFrame:[self.grid frameOfCellAtRow:i inColumn:j] andPlayingCard:playingCard];
@@ -83,9 +84,12 @@
             [self.mainViewForPlayingCards addSubview:playingCardView];
             count++;
             if (count >= self.grid.minimumNumberOfCells) {
-                break;
+                shouldBreak = YES;
                 break;
             }
+        }
+        if (shouldBreak) {
+            break;
         }
     }
 }
@@ -98,6 +102,15 @@
     [self.mainViewForPlayingCards.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [self populateGridWithPlayingCardsFromDeck];
 }
+
+#pragma mark - Rotation
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    
+}
+
+
 
 #pragma mark - Gestures
 //Remember: need a way to match the index of the view and the index of the card(in currentDeck) being shown.

@@ -205,13 +205,13 @@
     NSMutableAttributedString *cornerText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n%@", self.rank, self.suit]
                                                                                    attributes:@{NSFontAttributeName : cornerFont, NSParagraphStyleAttributeName : paragraphStyle}];
 
-    CGRect textBounds;
-    textBounds.origin = CGPointMake(self.cornerOffset, self.cornerOffset);
-    textBounds.size = [cornerText size];
-    [cornerText drawInRect:textBounds];
+    CGRect textFrame;
+    textFrame.origin = CGPointMake(self.cornerOffset, self.cornerOffset);
+    textFrame.size = [cornerText size];
+    [cornerText drawInRect:textFrame];
     
     [self pushContextAndRotateUpsideDown];
-    [cornerText drawInRect:textBounds];
+    [cornerText drawInRect:textFrame];
     [self popContext];
 }
 
@@ -236,7 +236,7 @@
 //    } completion:^(BOOL finished) {
 //        //
 //    }];
-    
+
     if (self.playingCard.isCardMatched) {
         [UIView animateWithDuration:1.0 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
             self.alpha = 0.5;

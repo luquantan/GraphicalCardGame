@@ -71,16 +71,18 @@
 {
     NSInteger count = 0;
     for (NSUInteger i = 0; i < self.grid.rowCount; i++) {
+        BOOL shouldBreak = NO;
         for (NSUInteger j = 0; j < self.grid.columnCount; j++) {
             SetCard *setCard = (SetCard *)[self.currentGame drawCardFromCurrentDeckWithIndex:count];
             SetCardView *setCardView = [[SetCardView alloc] initWithFrame:[self.grid frameOfCellAtRow:i inColumn:j] andSetCard:setCard];
             [self.mainViewForSetCard addSubview:setCardView];
             count++;
             if (count >= [self.deckInPlay count]) {
+                shouldBreak = YES;
                 break;
             }
         }
-        if (count >= [self.deckInPlay count]) {
+        if (shouldBreak) {
             break;
         }
     }
