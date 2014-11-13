@@ -14,7 +14,18 @@
 //- (void)updateCard;
 //- (instancetype)initWithFrame:(CGRect)frame andSetCard:(SetCard *)setCard;
 @interface SetCardView ()
+//Properties for setting the coordinates and bounding values for the drawings
 @property (nonatomic) CGFloat cornerRadius;
+@property (nonatomic) CGFloat centerX;
+@property (nonatomic) CGFloat centerY;
+@property (nonatomic) CGFloat boundingWidth;
+@property (nonatomic) CGFloat boundingHeight;
+@property (nonatomic) CGFloat middleX;
+@property (nonatomic) CGFloat middleY;
+@property (nonatomic) CGFloat leftX;
+@property (nonatomic) CGFloat leftY;
+@property (nonatomic) CGFloat rightX;
+@property (nonatomic) CGFloat rightY;
 @end
 
 @implementation SetCardView
@@ -34,12 +45,37 @@
 //    self.backgroundColor = nil;
 //    self.opaque = NO;
     [self setCardCornerRadius];
+    [self settingCoordinatesForDrawingSetCardObjects];
 }
 
 - (void)setCardCornerRadius
 {
     const CGFloat CORNER_RADIUS = 5.0;
     self.cornerRadius = CORNER_RADIUS * self.contentScaleFactor;
+}
+
+- (void)settingCoordinatesForDrawingSetCardObjects
+{
+    //Center X and Y of the view
+    self.centerX = CGRectGetMidX(self.bounds);
+    self.centerY = CGRectGetMidY(self.bounds);
+    
+    
+    //Bounding width and height of each element on the card
+    self.boundingWidth = self.bounds.size.width / 5;
+    self.boundingHeight = self.bounds.size.height / 5 * 3;
+    
+    //Top left corner for drawing middle element
+    self.middleX = self.centerX - (self.boundingWidth / 2);
+    self.middleY = self.centerY - (self.boundingHeight / 2);
+    
+    //Top left corner of the leftmost element
+    self.leftX = self.middleX - self.boundingWidth - (self.boundingWidth / 4);
+    self.leftY = self.middleY;
+    
+    //Top left corner of the rightmost element
+    self.rightX = self.middleX + (self.boundingWidth * 2) + (self.boundingWidth / 4);
+    self.rightY = self.middleY;
 }
 #pragma mark - UpdateUI
 - (void)updateCard
@@ -64,7 +100,7 @@
     [roundedRect stroke];
 
     
-    [self drawCircleWithColor:self.setCard.symbolColorOnCard withTexture:self.setCard.symbolTextureOnCard];
+    [self drawRoundedRectWithColor:self.setCard.symbolColorOnCard withTexture:self.setCard.symbolTextureOnCard];
 }
 
 - (void)drawSetCard
@@ -75,21 +111,33 @@
 - (void)drawSquiggleWithColor:(SetCardSymbolColor)symbolColor withTexture:(SetCardSymbolTexture)symbolTexture
 {
     //Implement UIBezierPath as such to create this
+    [self createSymbolWithTexture:symbolTexture];
 }
 
 - (void)drawDiamondWithColor:(SetCardSymbolColor)symbolColor withTexture:(SetCardSymbolTexture)symbolTexture
 {
     //Implement UIBezierPath as such to create this
+    [self createSymbolWithTexture:symbolTexture];
 }
 
-- (void)drawCircleWithColor:(SetCardSymbolColor)symbolColor withTexture:(SetCardSymbolTexture)symbolTexture
+- (void)drawRoundedRectWithColor:(SetCardSymbolColor)symbolColor withTexture:(SetCardSymbolTexture)symbolTexture
 {
-    CGPoint center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
-    UIBezierPath *drawCricle = [UIBezierPath bezierPathWithArcCenter:center radius:25.0 startAngle:-M_PI endAngle:M_PI clockwise:YES];
+    UIBezierPath *drawRoundRect = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(self.middleX, self.middleY, self.boundingWidth, self.boundingHeight) cornerRadius:self.cornerRadius];
+    [drawRoundRect addClip];
     [[self symbolColorForEnum:symbolColor] setStroke];
-    drawCricle.lineWidth = 3.5;
-    [drawCricle stroke];
+    [[self symbolColorForEnum:symbolColor] setFill];
+    drawRoundRect.lineWidth = 5.5;
+    [drawRoundRect stroke];
+    
+//    for (float i = 0.000000; i <= 5.000000; i += 1.000000){
+//        NSLog(@"The value of the float in the loop is %f",i);
+//    }
+
+    [self createSymbolWithTexture:symbolTexture];
+
+    
 }
+
 
 #pragma mark - Helper Methods to return stuff i need from the ENUMS
 //This method will return the color of the card depending on the property of the card as represented by the enum
@@ -132,5 +180,42 @@
     return amount;
 }
 
+- (void)createSymbolWithTexture:(SetCardSymbolTexture)symbolTexture
+{
+    switch (symbolTexture) {
+        case SetCardSymbolTexture1:
+            //No Fill
+            break;
+        case SetCardSymbolTexture2:
+        {
+            UIBezierPath *strippedTexture = [[UIBezierPath alloc] init];
+            for (float i = self.middleY; i <= (self.middleY + self.boundingHeight); i+= 5.0) {
+                [strippedTexture moveToPoint:CGPointMake(0, i)];
+                [strippedTexture addLineToPoint:CGPointMake(self.bounds.size.width, i)];
+                strippedTexture.lineWidth = 1.0;
+                [strippedTexture stroke];
+            }
+        }
+            break;
+        case SetCardSymbolTexture3:
+        {
+            UIBezierPath *fillRect = [UIBezierPath bezierPathWithRect:CGRectMake(self.leftX, self.leftY, self.bounds.size.width, self.bounds.size.height)];
+            [fillRect fillWithBlendMode:kCGBlendModeColor alpha:5.0];
+        }
+            break;
+        default:
+            break;
+    }
+}
 
+#pragma mark - Unused Drawing Code
+
+- (void)drawCircle
+{
+    //    CGPoint center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+    //    UIBezierPath *drawCricle = [UIBezierPath bezierPathWithArcCenter:center radius:25.0 startAngle:-M_PI endAngle:M_PI clockwise:YES];
+    //    [drawCricle addClip];}
+    //    drawCricle.lineWidth = 7.5;
+    //    [drawCricle stroke];
+}
 @end

@@ -76,10 +76,12 @@
             SetCardView *setCardView = [[SetCardView alloc] initWithFrame:[self.grid frameOfCellAtRow:i inColumn:j] andSetCard:setCard];
             [self.mainViewForSetCard addSubview:setCardView];
             count++;
-            if (count == [self.deckInPlay count]) {
-                break;
+            if (count >= [self.deckInPlay count]) {
                 break;
             }
+        }
+        if (count >= [self.deckInPlay count]) {
+            break;
         }
     }
 }
