@@ -95,10 +95,20 @@ static const CGFloat LQSetCardViewCornerRadius = 5.0;
     }
 }
 
+- (void)setSelected:(BOOL)selected
+{
+    _selected = selected;
+    [self setNeedsDisplay];
+}
 #pragma mark - UpdateUI
 - (void)updateCard
 {
-    //Update card here
+    self.selected = self.setCard.isCardChosen;
+    if (self.setCard.isCardMatched) {
+        [UIView animateWithDuration:1.0 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+            self.alpha = 0.5;
+        } completion:nil];
+    }
 }
 
 #pragma mark - Drawing SetCard
@@ -112,11 +122,17 @@ static const CGFloat LQSetCardViewCornerRadius = 5.0;
     [roundedRect addClip];
     
     //Fill the view with white and and black border
-    [[UIColor whiteColor] setFill];
-    [roundedRect fill];
-    [[UIColor blackColor] setStroke];
-    [roundedRect stroke];
-    
+    if (self.selected) {
+        [[UIColor lightGrayColor] setFill];
+        [roundedRect fill];
+        [[UIColor blackColor] setStroke];
+        [roundedRect stroke];
+    } else if (!self.selected) {
+        [[UIColor whiteColor] setFill];
+        [roundedRect fill];
+        [[UIColor blackColor] setStroke];
+        [roundedRect stroke];
+    }
     [self drawSetCardOfType:self.setCard.symbolShapeOnCard withAmount:self.setCard.symbolAmountOnCard];
 }
 

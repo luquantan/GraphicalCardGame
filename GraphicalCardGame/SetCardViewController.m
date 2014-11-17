@@ -61,6 +61,12 @@
     return _grid;
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+}
+
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -75,6 +81,10 @@
         for (NSUInteger j = 0; j < self.grid.columnCount; j++) {
             SetCard *setCard = (SetCard *)[self.currentGame drawCardFromCurrentDeckWithIndex:count];
             SetCardView *setCardView = [[SetCardView alloc] initWithFrame:[self.grid frameOfCellAtRow:i inColumn:j] andSetCard:setCard];
+            UITapGestureRecognizer *tapRecognizer = [UITapGestureRecognizer new];
+            [tapRecognizer addTarget:self action:@selector(handleTap:)];
+            tapRecognizer.numberOfTapsRequired = 1;
+            [setCardView addGestureRecognizer:tapRecognizer];
             [self.mainViewForSetCard addSubview:setCardView];
             count++;
             if (count >= [self.deckInPlay count]) {
@@ -88,17 +98,32 @@
     }
 }
 
+- (void)handleTap:(UITapGestureRecognizer *)tap
+{
+    UIView *tappedSubview = tap.view;
+    if ([tappedSubview isKindOfClass:[SetCardView class]]) {
+        SetCardView *tappedSetCardView = (SetCardView *)tappedSubview;
+        NSUInteger chosenButtonIndex = [self.currentGame indexThatMatchesCard:(Card *)tappedSetCardView.setCard];
+        self.currentGame.numberOfCards = 3;
+        [self.currentGame matchCardAtIndex:chosenButtonIndex];
+    }
+    self.score += self.currentGame.score;
+    self.scoreLabel.text = [NSString stringWithFormat:@"Score: %li", self.score];
+    [self.mainViewForSetCard.subviews makeObjectsPerformSelector:@selector(updateCard)];
+}
+
 #pragma mark - SetCard Game
 - (IBAction)redealButtonPressed:(UIButton *)sender
 {
     //Reset the Game and any previous cards/score
     //However, should have a gesture recognizer to add more cards into the deckInPlay.
+    self.currentGame = nil;
+    self.score = 0;
+    self.scoreLabel.text = @"Score: 0";
+    [self.mainViewForSetCard.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [self populateGridWithSetCardsFromDeck];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
