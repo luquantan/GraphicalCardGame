@@ -256,15 +256,23 @@ static const CGFloat LQSetCardViewCornerRadius = 5.0;
     }
     if (symbolAmount == SetCardSymbolAmount2) {
         UIBezierPath *path = [[UIBezierPath alloc] init];
+        UIBezierPath *path2 = [[UIBezierPath alloc] init];
         path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(self.leftCornerX, self.heightY, self.boundingWidth, self.boundingHeight) cornerRadius:self.cornerRadius];
-        path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(self.rightCornerX, self.heightY, self.boundingWidth, self.boundingHeight) cornerRadius:self.cornerRadius];
+        path2 = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(self.rightCornerX, self.heightY, self.boundingWidth, self.boundingHeight) cornerRadius:self.cornerRadius];
+
+        [path appendPath:path2];
+
         return path;
     }
     if (symbolAmount ==  SetCardSymbolAmount3) {
         UIBezierPath *path = [[UIBezierPath alloc] init];
+        UIBezierPath *path2 = [[UIBezierPath alloc] init];
+        UIBezierPath *path3 = [[UIBezierPath alloc] init];
         path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(self.centerCornerX, self.heightY, self.boundingWidth, self.boundingHeight) cornerRadius:self.cornerRadius];
-        path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(self.leftCornerX, self.heightY, self.boundingWidth, self.boundingHeight) cornerRadius:self.cornerRadius];
-        path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(self.rightCornerX, self.heightY, self.boundingWidth, self.boundingHeight) cornerRadius:self.cornerRadius];
+        path2 = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(self.leftCornerX, self.heightY, self.boundingWidth, self.boundingHeight) cornerRadius:self.cornerRadius];
+        path3 = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(self.rightCornerX, self.heightY, self.boundingWidth, self.boundingHeight) cornerRadius:self.cornerRadius];
+        [path appendPath:path2];
+        [path appendPath:path3];
         return path;
     }
     return nil;
