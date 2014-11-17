@@ -19,13 +19,19 @@ static const CGFloat LQSetCardViewCornerRadius = 5.0;
 @interface SetCardView ()
 //Properties for setting the coordinates and bounding values for the drawings
 @property (nonatomic) CGFloat cornerRadius;
-@property (nonatomic) CGFloat centerX;
-@property (nonatomic) CGFloat centerY;
 @property (nonatomic) CGFloat boundingWidth;
 @property (nonatomic) CGFloat boundingHeight;
 @property (nonatomic) CGFloat heightY;
+
+@property (nonatomic) CGFloat centerX;
+@property (nonatomic) CGFloat centerY;
+@property (nonatomic) CGFloat centerCornerX;
+
 @property (nonatomic) CGFloat leftCenterX;
+@property (nonatomic) CGFloat leftCornerX;
+
 @property (nonatomic) CGFloat rightCenterX;
+@property (nonatomic) CGFloat rightCornerX;
 @end
 
 @implementation SetCardView
@@ -42,8 +48,11 @@ static const CGFloat LQSetCardViewCornerRadius = 5.0;
 
 - (void)setup
 {
+    self.opaque = NO;
+    self.backgroundColor = nil;
     [self setCardCornerRadius];
     [self settingCoordinatesForDrawingSetCardObjects];
+    [self xyCenterBasedOnSymbolAmount:self.setCard.symbolAmountOnCard];
 }
 
 - (void)setCardCornerRadius
@@ -63,12 +72,27 @@ static const CGFloat LQSetCardViewCornerRadius = 5.0;
     self.boundingHeight = self.bounds.size.height / 5 * 3;
     
     self.heightY = self.centerY - (self.boundingHeight / 2);
-    
-    //X-value of center for drawing element
-    self.leftCenterX = self.centerX - self.boundingWidth - (self.boundingWidth / 4);
-    self.rightCenterX = self.centerX + (self.boundingWidth * 2) + (self.boundingWidth / 4);
-    
+    self.centerCornerX = self.centerX - (self.boundingWidth / 2);
+}
 
+//Finding the top left corner and center in X of the side elements based on symbolAmount
+- (void)xyCenterBasedOnSymbolAmount:(SetCardSymbolAmount)symbolAmount
+{
+    if (symbolAmount == SetCardSymbolAmount2)
+    {
+        self.leftCenterX = self.centerX - self.boundingWidth / 1.5;
+        self.leftCornerX = self.leftCenterX - (self.boundingWidth / 2);
+        self.rightCenterX = self.centerX + self.boundingWidth / 1.5;
+        self.rightCornerX = self.rightCenterX - (self.boundingWidth / 2);
+    }
+    
+    if (symbolAmount == SetCardSymbolAmount3)
+    {
+        self.leftCenterX = self.centerX - (self.boundingWidth) - (self.boundingWidth / 4);
+        self.leftCornerX = self.leftCenterX - (self.boundingWidth / 2);
+        self.rightCenterX = self.centerX + (self.boundingWidth) + (self.boundingWidth / 4);
+        self.rightCornerX = self.rightCenterX - (self.boundingWidth / 2);
+    }
 }
 
 #pragma mark - UpdateUI
@@ -77,11 +101,11 @@ static const CGFloat LQSetCardViewCornerRadius = 5.0;
     //Update card here
 }
 
-#pragma mark - Drawing
-
+#pragma mark - Drawing SetCard
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
+- (void)drawRect:(CGRect)rect
+{
     UIBezierPath *roundedRect = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:self.cornerRadius];
     
     //This clips our view and all the drawings to the roundedRect
@@ -93,75 +117,158 @@ static const CGFloat LQSetCardViewCornerRadius = 5.0;
     [[UIColor blackColor] setStroke];
     [roundedRect stroke];
     
-    
-    [self drawSquiggleWithColor:self.setCard.symbolColorOnCard withTexture:self.setCard.symbolTextureOnCard withCenterXAt:self.centerX andCenterYAt:self.centerY];
+    [self drawSetCardOfType:self.setCard.symbolShapeOnCard withAmount:self.setCard.symbolAmountOnCard];
 }
 
+#pragma mark - Drawing individual elements with symbol amount
+//These methods will draw the card element in the right position depending on the number of element needed
 - (void)drawSetCardOfType:(SetCardSymbolShape)symbolShape withAmount:(SetCardSymbolAmount)symbolAmount
 {
-    
+    if (symbolShape == SetCardSymbolShape1) {
+        [self drawSquiggleWithColor:self.setCard.symbolColorOnCard withTexture:self.setCard.symbolTextureOnCard];
+    }
+    if (symbolShape == SetCardSymbolShape2) {
+        [self drawDiamondWithColor:self.setCard.symbolColorOnCard withTexture:self.setCard.symbolTextureOnCard];
+    }
+    if (symbolShape == SetCardSymbolShape3) {
+        [self drawRoundedRectWithColor:self.setCard.symbolColorOnCard withSymbolTexture:self.setCard.symbolTextureOnCard];
+    }
 }
 
-//These methods will draw the card element in the right position depending on the number of element needed
-- (void)drawSquiggleWithAmount:(SetCardSymbolAmount)symbolAmount
+- (void)drawSquiggleWithColor:(SetCardSymbolColor)symbolColor withTexture:(SetCardSymbolTexture)symbolTexture
 {
-    
-}
-
-- (void)drawDiamondWithAmount:(SetCardSymbolAmount)symbolAmount
-{
-
-}
-
-- (void)drawRoundedRectWithAmount:(SetCardSymbolAmount)symbolAmount
-{
-    
-}
-//These methods will draw a single element in relation to its own center, not the center of the cardview
-- (void)drawSquiggleWithColor:(SetCardSymbolColor)symbolColor withTexture:(SetCardSymbolTexture)symbolTexture withCenterXAt:(CGFloat)centerX andCenterYAt:(CGFloat)centerY
-{
-    CGFloat cornerX = centerX - (self.boundingWidth / 2);
     UIBezierPath *drawSquiggles = [[UIBezierPath alloc] init];
-    [drawSquiggles moveToPoint:CGPointMake(centerX, self.heightY)];
-    [drawSquiggles addCurveToPoint:CGPointMake(centerX, self.heightY + self.boundingHeight) controlPoint1:CGPointMake((cornerX - (self.boundingWidth / 2)), (centerY - (self.boundingHeight / 5))) controlPoint2:CGPointMake(cornerX + self.boundingWidth, centerY + (self.boundingHeight / 5))];
-    [drawSquiggles addCurveToPoint:CGPointMake(centerX, self.heightY) controlPoint1:CGPointMake(cornerX + self.boundingWidth + (self.boundingWidth /2), centerY + (self.boundingHeight / 5)) controlPoint2:CGPointMake(cornerX, (centerY - (self.boundingHeight / 5)))];
-    [drawSquiggles addClip];
+    [self drawPathForSquiggle:drawSquiggles withSymbolAmount:self.setCard.symbolAmountOnCard];
     [[self symbolColorForEnum:symbolColor] setStroke];
     drawSquiggles.lineWidth = 5.5;
     [drawSquiggles stroke];
+    [drawSquiggles addClip];
     [self createSymbolWithTexture:symbolTexture andFillColor:[self symbolColorForEnum:symbolColor]];
 }
 
-- (void)drawDiamondWithColor:(SetCardSymbolColor)symbolColor withTexture:(SetCardSymbolTexture)symbolTexture withCenterXAt:(CGFloat)centerX andCenterYAt:(CGFloat)centerY
+- (void)drawPathForSquiggle:(UIBezierPath *)path withSymbolAmount:(SetCardSymbolAmount)symbolAmount
 {
-    CGFloat cornerX = centerX - (self.boundingWidth / 2);
+    if (symbolAmount == SetCardSymbolAmount1) {
+        
+        [path moveToPoint:CGPointMake(self.centerX, self.heightY)];
+        [path addCurveToPoint:CGPointMake(self.centerX, self.heightY + self.boundingHeight) controlPoint1:CGPointMake((self.centerCornerX - (self.boundingWidth / 2)), (self.centerY - (self.boundingHeight / 5))) controlPoint2:CGPointMake(self.centerCornerX + self.boundingWidth, self.centerY + (self.boundingHeight / 5))];
+        [path addCurveToPoint:CGPointMake(self.centerX, self.heightY) controlPoint1:CGPointMake(self.centerCornerX + self.boundingWidth + (self.boundingWidth /2), self.centerY + (self.boundingHeight / 5)) controlPoint2:CGPointMake(self.centerCornerX, (self.centerY - (self.boundingHeight / 5)))];
+        
+    }
+    if (symbolAmount == SetCardSymbolAmount2) {
+        [path moveToPoint:CGPointMake(self.leftCenterX, self.heightY)];
+        [path addCurveToPoint:CGPointMake(self.leftCenterX, self.heightY + self.boundingHeight) controlPoint1:CGPointMake((self.leftCornerX - (self.boundingWidth / 2)), (self.centerY - (self.boundingHeight / 5))) controlPoint2:CGPointMake(self.leftCornerX + self.boundingWidth, self.centerY + (self.boundingHeight / 5))];
+        [path addCurveToPoint:CGPointMake(self.leftCenterX, self.heightY) controlPoint1:CGPointMake(self.leftCornerX + self.boundingWidth + (self.boundingWidth /2), self.centerY + (self.boundingHeight / 5)) controlPoint2:CGPointMake(self.leftCornerX, (self.centerY - (self.boundingHeight / 5)))];
+
+        [path moveToPoint:CGPointMake(self.rightCenterX, self.heightY)];
+        [path addCurveToPoint:CGPointMake(self.rightCenterX, self.heightY + self.boundingHeight) controlPoint1:CGPointMake((self.rightCornerX - (self.boundingWidth / 2)), (self.centerY - (self.boundingHeight / 5))) controlPoint2:CGPointMake(self.rightCornerX + self.boundingWidth, self.centerY + (self.boundingHeight / 5))];
+        [path addCurveToPoint:CGPointMake(self.rightCenterX, self.heightY) controlPoint1:CGPointMake(self.rightCornerX + self.boundingWidth + (self.boundingWidth /2), self.centerY + (self.boundingHeight / 5)) controlPoint2:CGPointMake(self.rightCornerX, (self.centerY - (self.boundingHeight / 5)))];
+    }
+    if (symbolAmount == SetCardSymbolAmount3) {
+
+        [path moveToPoint:CGPointMake(self.leftCenterX, self.heightY)];
+        [path addCurveToPoint:CGPointMake(self.leftCenterX, self.heightY + self.boundingHeight) controlPoint1:CGPointMake((self.leftCornerX - (self.boundingWidth / 2)), (self.centerY - (self.boundingHeight / 5))) controlPoint2:CGPointMake(self.leftCornerX + self.boundingWidth, self.centerY + (self.boundingHeight / 5))];
+        [path addCurveToPoint:CGPointMake(self.leftCenterX, self.heightY) controlPoint1:CGPointMake(self.leftCornerX + self.boundingWidth + (self.boundingWidth /2), self.centerY + (self.boundingHeight / 5)) controlPoint2:CGPointMake(self.leftCornerX, (self.centerY - (self.boundingHeight / 5)))];
+        
+        [path moveToPoint:CGPointMake(self.centerX, self.heightY)];
+        [path addCurveToPoint:CGPointMake(self.centerX, self.heightY + self.boundingHeight) controlPoint1:CGPointMake((self.centerCornerX - (self.boundingWidth / 2)), (self.centerY - (self.boundingHeight / 5))) controlPoint2:CGPointMake(self.centerCornerX + self.boundingWidth, self.centerY + (self.boundingHeight / 5))];
+        [path addCurveToPoint:CGPointMake(self.centerX, self.heightY) controlPoint1:CGPointMake(self.centerCornerX + self.boundingWidth + (self.boundingWidth /2), self.centerY + (self.boundingHeight / 5)) controlPoint2:CGPointMake(self.centerCornerX, (self.centerY - (self.boundingHeight / 5)))];
+
+        
+        [path moveToPoint:CGPointMake(self.rightCenterX, self.heightY)];
+        [path addCurveToPoint:CGPointMake(self.rightCenterX, self.heightY + self.boundingHeight) controlPoint1:CGPointMake((self.rightCornerX - (self.boundingWidth / 2)), (self.centerY - (self.boundingHeight / 5))) controlPoint2:CGPointMake(self.rightCornerX + self.boundingWidth, self.centerY + (self.boundingHeight / 5))];
+        [path addCurveToPoint:CGPointMake(self.rightCenterX, self.heightY) controlPoint1:CGPointMake(self.rightCornerX + self.boundingWidth + (self.boundingWidth /2), self.centerY + (self.boundingHeight / 5)) controlPoint2:CGPointMake(self.rightCornerX, (self.centerY - (self.boundingHeight / 5)))];
+    }
+}
+
+- (void)drawDiamondWithColor:(SetCardSymbolColor)symbolColor withTexture:(SetCardSymbolTexture)symbolTexture
+{
     UIBezierPath *drawDiamond = [[UIBezierPath alloc] init];
-    [drawDiamond moveToPoint:CGPointMake(centerX, (centerY + (self.boundingHeight / 2)))];
-    [drawDiamond addLineToPoint:CGPointMake(cornerX + self.boundingWidth, centerY)];
-    [drawDiamond addLineToPoint:CGPointMake(centerX, (centerY - (self.boundingHeight / 2)))];
-    [drawDiamond addLineToPoint:CGPointMake(cornerX, centerY)];
-    [drawDiamond closePath];
-    [drawDiamond addClip];
+    [self drawPathForDiamond:drawDiamond withSymbolAmount:self.setCard.symbolAmountOnCard];
     [[self symbolColorForEnum:symbolColor] setStroke];
-    [[self symbolColorForEnum:symbolColor] setFill];
     drawDiamond.lineWidth = 5.5;
     [drawDiamond stroke];
+    [drawDiamond addClip];
     [self createSymbolWithTexture:symbolTexture andFillColor:[self symbolColorForEnum:symbolColor]];
 }
 
-- (void)drawRoundedRectWithColor:(SetCardSymbolColor)symbolColor withTexture:(SetCardSymbolTexture)symbolTexture withCenterXAt:(CGFloat)centerX
+- (void)drawPathForDiamond:(UIBezierPath *)path withSymbolAmount:(SetCardSymbolAmount)symbolAmount
 {
-    CGFloat cornerX = centerX - (self.boundingWidth / 2);
-    UIBezierPath *drawRoundRect = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(cornerX, self.heightY, self.boundingWidth, self.boundingHeight) cornerRadius:self.cornerRadius];
-    [drawRoundRect addClip];
+    if (symbolAmount == SetCardSymbolAmount1) {
+        [path moveToPoint:CGPointMake(self.centerX, self.heightY)];
+        [path addLineToPoint:CGPointMake(self.centerCornerX + self.boundingWidth, self.centerY)];
+        [path addLineToPoint:CGPointMake(self.centerX, self.heightY + self.boundingHeight)];
+        [path addLineToPoint:CGPointMake(self.centerCornerX, self.centerY)];
+        [path closePath];
+    }
+    if (symbolAmount == SetCardSymbolAmount2) {
+        [path moveToPoint:CGPointMake(self.leftCenterX, self.heightY)];
+        [path addLineToPoint:CGPointMake(self.leftCornerX + self.boundingWidth, self.centerY)];
+        [path addLineToPoint:CGPointMake(self.leftCenterX, self.heightY + self.boundingHeight)];
+        [path addLineToPoint:CGPointMake(self.leftCornerX, self.centerY)];
+        [path closePath];
+        
+        [path moveToPoint:CGPointMake(self.rightCenterX, self.heightY)];
+        [path addLineToPoint:CGPointMake(self.rightCornerX + self.boundingWidth, self.centerY)];
+        [path addLineToPoint:CGPointMake(self.rightCenterX, self.heightY + self.boundingHeight)];
+        [path addLineToPoint:CGPointMake(self.rightCornerX, self.centerY)];
+        [path closePath];
+        
+    }
+    if (symbolAmount == SetCardSymbolAmount3) {
+        [path moveToPoint:CGPointMake(self.centerX, self.heightY)];
+        [path addLineToPoint:CGPointMake(self.centerCornerX + self.boundingWidth, self.centerY)];
+        [path addLineToPoint:CGPointMake(self.centerX, self.heightY + self.boundingHeight)];
+        [path addLineToPoint:CGPointMake(self.centerCornerX, self.centerY)];
+        [path closePath];
+        
+        [path moveToPoint:CGPointMake(self.leftCenterX, self.heightY)];
+        [path addLineToPoint:CGPointMake(self.leftCornerX + self.boundingWidth, self.centerY)];
+        [path addLineToPoint:CGPointMake(self.leftCenterX, self.heightY + self.boundingHeight)];
+        [path addLineToPoint:CGPointMake(self.leftCornerX, self.centerY)];
+        [path closePath];
+        
+        [path moveToPoint:CGPointMake(self.rightCenterX, self.heightY)];
+        [path addLineToPoint:CGPointMake(self.rightCornerX + self.boundingWidth, self.centerY)];
+        [path addLineToPoint:CGPointMake(self.rightCenterX, self.heightY + self.boundingHeight)];
+        [path addLineToPoint:CGPointMake(self.rightCornerX, self.centerY)];
+        [path closePath];
+    }
+}
+
+- (void)drawRoundedRectWithColor:(SetCardSymbolColor)symbolColor withSymbolTexture:(SetCardSymbolTexture)symbolTexture
+{
+    UIBezierPath *drawRoundRect = [[UIBezierPath alloc] init];
+    drawRoundRect = [self drawPathForRoundedRectWithSymbolAmount:self.setCard.symbolAmountOnCard];
     [[self symbolColorForEnum:symbolColor] setStroke];
-    [[self symbolColorForEnum:symbolColor] setFill];
     drawRoundRect.lineWidth = 5.5;
     [drawRoundRect stroke];
-    
+    [drawRoundRect addClip];
     [self createSymbolWithTexture:symbolTexture andFillColor:[self symbolColorForEnum:symbolColor]];
 }
 
+- (UIBezierPath *)drawPathForRoundedRectWithSymbolAmount:(SetCardSymbolAmount)symbolAmount
+{
+    if (symbolAmount == SetCardSymbolAmount1) {
+        UIBezierPath *path = [[UIBezierPath alloc] init];
+        path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(self.centerCornerX, self.heightY, self.boundingWidth, self.boundingHeight) cornerRadius:self.cornerRadius];
+        return path;
+    }
+    if (symbolAmount == SetCardSymbolAmount2) {
+        UIBezierPath *path = [[UIBezierPath alloc] init];
+        path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(self.leftCornerX, self.heightY, self.boundingWidth, self.boundingHeight) cornerRadius:self.cornerRadius];
+        path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(self.rightCornerX, self.heightY, self.boundingWidth, self.boundingHeight) cornerRadius:self.cornerRadius];
+        return path;
+    }
+    if (symbolAmount ==  SetCardSymbolAmount3) {
+        UIBezierPath *path = [[UIBezierPath alloc] init];
+        path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(self.centerCornerX, self.heightY, self.boundingWidth, self.boundingHeight) cornerRadius:self.cornerRadius];
+        path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(self.leftCornerX, self.heightY, self.boundingWidth, self.boundingHeight) cornerRadius:self.cornerRadius];
+        path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(self.rightCornerX, self.heightY, self.boundingWidth, self.boundingHeight) cornerRadius:self.cornerRadius];
+        return path;
+    }
+    return nil;
+}
 
 #pragma mark - Helper Methods to return stuff i need from the ENUMS
 //This method will return the color of the card depending on the property of the card as represented by the enum
@@ -185,25 +292,6 @@ static const CGFloat LQSetCardViewCornerRadius = 5.0;
     return colorForCard;
 }
 
--(NSInteger)symbolAmountForEnum:(enum SetCardSymbolAmount)symbolAmount
-{
-    NSInteger amount;
-    switch (symbolAmount) {
-        case SetCardSymbolAmount1:
-            amount = 1;
-            break;
-        case SetCardSymbolAmount2:
-            amount = 2;
-            break;
-        case SetCardSymbolAmount3:
-            amount = 3;
-            break;
-        default:
-            break;
-    }
-    return amount;
-}
-
 - (void)createSymbolWithTexture:(SetCardSymbolTexture)symbolTexture andFillColor:(UIColor *)fillColor
 {
     switch (symbolTexture) {
@@ -224,7 +312,6 @@ static const CGFloat LQSetCardViewCornerRadius = 5.0;
         case SetCardSymbolTexture3:
         {
             UIBezierPath *fillRect = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
-            
             CGFloat r,g,b, a;
             [fillColor getRed:&r green:&g blue:&b alpha:&a];
             [[UIColor colorWithRed:r green:g blue:b alpha:a / 1.5] setFill];
@@ -236,14 +323,4 @@ static const CGFloat LQSetCardViewCornerRadius = 5.0;
     }
 }
 
-#pragma mark - Unused Drawing Code
-
-- (void)drawCircle
-{
-    //    CGPoint center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
-    //    UIBezierPath *drawCricle = [UIBezierPath bezierPathWithArcCenter:center radius:25.0 startAngle:-M_PI endAngle:M_PI clockwise:YES];
-    //    [drawCricle addClip];}
-    //    drawCricle.lineWidth = 7.5;
-    //    [drawCricle stroke];
-}
 @end
