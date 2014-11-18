@@ -38,31 +38,38 @@
     double maxCellHeight = self.maxCellHeight;
     
     BOOL flipped = NO;
-    if (aspectRatio > 1) {
-        flipped = YES;
-        overallHeight = ABS(self.size.width);
-        overallWidth = ABS(self.size.height);
-        aspectRatio = 1.0/aspectRatio;
-        minCellWidth = self.minCellHeight;
-        minCellHeight = self.minCellWidth;
-        maxCellWidth = self.maxCellHeight;
-        maxCellHeight = self.maxCellWidth;
-    }
+    
+    //NOTE: Lu removed this portion. Flip is not needed, unsure of need for this block.
+//    if (aspectRatio > 1) {
+//        flipped = YES;
+//        overallHeight = ABS(self.size.width);
+//        overallWidth = ABS(self.size.height);
+//        aspectRatio = 1.0/aspectRatio;
+//        minCellWidth = self.minCellHeight;
+//        minCellHeight = self.minCellWidth;
+//        maxCellWidth = self.maxCellHeight;
+//        maxCellHeight = self.maxCellWidth;
+//    }
     
     if (minCellWidth < 0) minCellWidth = 0;
     if (minCellHeight < 0) minCellHeight = 0;
 
     int columnCount = 1;
+
     while (!self.resolved && !self.unresolvable) {
         double cellWidth = overallWidth / (double)columnCount;
+        NSLog(@"cellWidth is %f",cellWidth);
         if (cellWidth <= minCellWidth) {
             self.unresolvable = YES;
         } else {
             double cellHeight = cellWidth / aspectRatio;
+            NSLog(@"cellHeight is %f",cellHeight);
             if (cellHeight <= minCellHeight) {
                 self.unresolvable = YES;
             } else {
-                int rowCount = (int)(overallHeight / cellHeight);
+                int rowCount = floor(overallHeight / cellHeight);    //Important as it keeps the aspect ratio of the views
+                
+                NSLog(@"The row count is %i",rowCount);
                 if ((rowCount * columnCount >= self.minimumNumberOfCells) &&
                     ((maxCellWidth <= minCellWidth) || (cellWidth <= maxCellWidth)) &&
                     ((maxCellHeight <= minCellHeight) || (cellHeight <= maxCellHeight))) {
@@ -77,6 +84,7 @@
                     }
                     self.resolved = YES;
                 }
+                NSLog(@"The column count is %i",columnCount);
                 columnCount++;
             }
         }

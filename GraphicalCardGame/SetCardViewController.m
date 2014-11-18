@@ -45,7 +45,7 @@
 {
     if (!_deckInPlay) {
         _deckInPlay = [[NSMutableArray alloc] init];
-        _deckInPlay = [self.currentGame drawCardsFromCurrentDeckWithAmount:12]; //Hard Coded since the SetCard game starts off with 12 cards always
+        _deckInPlay = [self.currentGame copyCurrentGameDeck];
     }
     return _deckInPlay;
 }
@@ -54,10 +54,10 @@
 {
     if (!_grid) {
         _grid = [[Grid alloc] init];
-        _grid.size = self.mainViewForSetCard.bounds.size;
-        _grid.cellAspectRatio = 3.0 / 2.0;
-        _grid.minimumNumberOfCells = [self.deckInPlay count];
     }
+    _grid.size = self.mainViewForSetCard.bounds.size;
+    _grid.cellAspectRatio = 3.0 / 2.0;
+    _grid.minimumNumberOfCells = 12;
     return _grid;
 }
 

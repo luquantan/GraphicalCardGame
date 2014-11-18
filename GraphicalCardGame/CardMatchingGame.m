@@ -76,6 +76,17 @@
     return [self.currentDeck objectAtIndex:index];
 }
 
+- (NSMutableArray *)copyCurrentGameDeck
+{
+    NSMutableArray *copyOfDeck = [self.currentDeck mutableCopy];
+    return copyOfDeck;
+}
+
+- (void)syncCurrentGameDeckWith:(NSMutableArray *)deck
+{
+    self.currentDeck = deck;
+}
+
 - (NSMutableArray *)drawCardsFromCurrentDeckWithAmount:(NSInteger)amount
 {
     NSMutableArray *mutableArray = [[NSMutableArray alloc] init];

@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="iWZ-pg-Bvl">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -118,18 +119,21 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qiM-Qc-Kg4">
-                                <rect key="frame" x="16" y="28" width="568" height="480"/>
-                                <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="16" y="81" width="568" height="379"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="qiM-Qc-Kg4" secondAttribute="height" multiplier="3:2" id="yxD-yd-vQk"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="qiM-Qc-Kg4" firstAttribute="top" secondItem="TFk-mc-3hp" secondAttribute="bottom" constant="8" symbolic="YES" id="4W3-5i-zeQ"/>
-                            <constraint firstItem="wyu-gq-pfI" firstAttribute="top" secondItem="qiM-Qc-Kg4" secondAttribute="bottom" constant="8" symbolic="YES" id="GWc-CF-7CS"/>
+                            <constraint firstAttribute="centerY" secondItem="qiM-Qc-Kg4" secondAttribute="centerY" constant="30" id="5ZW-Pn-j5c"/>
+                            <constraint firstItem="qiM-Qc-Kg4" firstAttribute="trailing" secondItem="wyu-gq-pfI" secondAttribute="trailing" id="ASv-Hl-XVT"/>
                             <constraint firstItem="1xQ-XV-4DT" firstAttribute="top" secondItem="wyu-gq-pfI" secondAttribute="bottom" constant="2" id="Lys-B3-XsK"/>
-                            <constraint firstItem="qiM-Qc-Kg4" firstAttribute="trailing" secondItem="wyu-gq-pfI" secondAttribute="trailing" id="QaM-u8-83a"/>
                             <constraint firstItem="bEK-YB-NuC" firstAttribute="leading" secondItem="a64-HM-2Cw" secondAttribute="leadingMargin" id="Ywg-eN-ijI"/>
-                            <constraint firstItem="qiM-Qc-Kg4" firstAttribute="leading" secondItem="bEK-YB-NuC" secondAttribute="leading" id="hqh-mm-eGq"/>
+                            <constraint firstItem="bEK-YB-NuC" firstAttribute="leading" secondItem="qiM-Qc-Kg4" secondAttribute="leading" id="gIv-kU-aPT"/>
+                            <constraint firstAttribute="centerX" secondItem="qiM-Qc-Kg4" secondAttribute="centerX" id="vsU-GB-GPa"/>
                             <constraint firstItem="wyu-gq-pfI" firstAttribute="trailing" secondItem="a64-HM-2Cw" secondAttribute="trailingMargin" id="wpr-Wp-vV6"/>
                             <constraint firstItem="1xQ-XV-4DT" firstAttribute="top" secondItem="bEK-YB-NuC" secondAttribute="bottom" constant="8" symbolic="YES" id="ygp-wx-zwh"/>
                         </constraints>
