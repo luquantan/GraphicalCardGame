@@ -125,16 +125,28 @@
                                     <constraint firstAttribute="width" secondItem="qiM-Qc-Kg4" secondAttribute="height" multiplier="3:2" id="yxD-yd-vQk"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Up0-X8-HYV">
+                                <rect key="frame" x="258" y="516" width="84" height="33"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <state key="normal" title="Add Cards">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="addCardsButton:" destination="Mx8-rl-xhd" eventType="touchUpInside" id="8Oa-kp-6T8"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="centerY" secondItem="qiM-Qc-Kg4" secondAttribute="centerY" constant="30" id="5ZW-Pn-j5c"/>
                             <constraint firstItem="qiM-Qc-Kg4" firstAttribute="trailing" secondItem="wyu-gq-pfI" secondAttribute="trailing" id="ASv-Hl-XVT"/>
+                            <constraint firstAttribute="centerX" secondItem="Up0-X8-HYV" secondAttribute="centerX" id="BCF-gq-mKd"/>
                             <constraint firstItem="1xQ-XV-4DT" firstAttribute="top" secondItem="wyu-gq-pfI" secondAttribute="bottom" constant="2" id="Lys-B3-XsK"/>
                             <constraint firstItem="bEK-YB-NuC" firstAttribute="leading" secondItem="a64-HM-2Cw" secondAttribute="leadingMargin" id="Ywg-eN-ijI"/>
                             <constraint firstItem="bEK-YB-NuC" firstAttribute="leading" secondItem="qiM-Qc-Kg4" secondAttribute="leading" id="gIv-kU-aPT"/>
                             <constraint firstAttribute="centerX" secondItem="qiM-Qc-Kg4" secondAttribute="centerX" id="vsU-GB-GPa"/>
                             <constraint firstItem="wyu-gq-pfI" firstAttribute="trailing" secondItem="a64-HM-2Cw" secondAttribute="trailingMargin" id="wpr-Wp-vV6"/>
+                            <constraint firstItem="wyu-gq-pfI" firstAttribute="centerY" secondItem="Up0-X8-HYV" secondAttribute="centerY" id="xQF-hM-KPP"/>
                             <constraint firstItem="1xQ-XV-4DT" firstAttribute="top" secondItem="bEK-YB-NuC" secondAttribute="bottom" constant="8" symbolic="YES" id="ygp-wx-zwh"/>
                         </constraints>
                     </view>

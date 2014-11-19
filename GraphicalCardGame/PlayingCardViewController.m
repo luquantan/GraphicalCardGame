@@ -61,6 +61,7 @@
 {
     [super viewDidAppear:animated];
     [self populateGridWithPlayingCardsFromDeck];
+
 }
 
 #pragma mark - PlayingCard Game

@@ -28,7 +28,9 @@
 
 //Methods to help SetCardDeck keep track of the cards on the deck
 - (NSMutableArray *)copyCurrentGameDeck;
-- (void)syncCurrentDeckWith:(NSMutableArray *)deck;
+- (void)syncCurrentGameDeckWith:(NSMutableArray *)deck;
+
+- (void)clearMatchedCards;
 
 
 

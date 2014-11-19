@@ -19,7 +19,6 @@
 
 //Game
 @property (strong, nonatomic) CardMatchingGame *currentGame;
-@property (strong, nonatomic) NSMutableArray *deckInPlay;
 @property (nonatomic) NSInteger score;
 
 //View outlets/actions
@@ -39,15 +38,6 @@
 - (Deck *)createDeck
 {
     return [[SetCardDeck alloc] init];
-}
-
-- (NSMutableArray *)deckInPlay
-{
-    if (!_deckInPlay) {
-        _deckInPlay = [[NSMutableArray alloc] init];
-        _deckInPlay = [self.currentGame copyCurrentGameDeck];
-    }
-    return _deckInPlay;
 }
 
 - (Grid *)grid
@@ -73,6 +63,7 @@
     [self populateGridWithSetCardsFromDeck];
 }
 
+
 - (void)populateGridWithSetCardsFromDeck
 {
     NSInteger count = 0;
@@ -87,7 +78,7 @@
             [setCardView addGestureRecognizer:tapRecognizer];
             [self.mainViewForSetCard addSubview:setCardView];
             count++;
-            if (count >= [self.deckInPlay count]) {
+            if (count >= (self.grid.rowCount * self.grid.columnCount)) {
                 shouldBreak = YES;
                 break;
             }
@@ -108,6 +99,7 @@
         [self.currentGame matchCardAtIndex:chosenButtonIndex];
     }
     self.score += self.currentGame.score;
+    [self.currentGame clearMatchedCards];
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %li", self.score];
     [self.mainViewForSetCard.subviews makeObjectsPerformSelector:@selector(updateCard)];
 }
@@ -116,7 +108,6 @@
 - (IBAction)redealButtonPressed:(UIButton *)sender
 {
     //Reset the Game and any previous cards/score
-    //However, should have a gesture recognizer to add more cards into the deckInPlay.
     self.currentGame = nil;
     self.score = 0;
     self.scoreLabel.text = @"Score: 0";
@@ -124,6 +115,10 @@
     [self populateGridWithSetCardsFromDeck];
 }
 
+- (IBAction)addCardsButton:(UIButton *)sender
+{
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

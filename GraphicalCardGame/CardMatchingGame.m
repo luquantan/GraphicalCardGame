@@ -58,7 +58,7 @@
                 [self.currentDeck addObject:someCard];
             } else {
                 self = nil;
-                NSLog(@"initGameWithNumberOfCards is returning nil - CardMatchingGame.m");
+                NSLog(@"initGameWithFullDeck is returning nil - CardMatchingGame.m");
                 break;
             }
         }
@@ -135,6 +135,18 @@
     }
 }
 
+- (void)clearMatchedCards
+{
+    NSMutableArray *cardsToRemove = [[NSMutableArray alloc] init];
+    for (Card *card in self.currentDeck) {
+        if (card.isCardMatched) {
+            [cardsToRemove addObject:card];
+        }
+    }
+    for (Card *card in cardsToRemove) {
+        [self.currentDeck removeObjectAtIndex:[self indexThatMatchesCard:card]];
+    }
+}
 
 - (Card *)cardAtIndex:(NSUInteger)index
 {

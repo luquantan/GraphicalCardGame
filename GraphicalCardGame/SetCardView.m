@@ -106,8 +106,13 @@ static const CGFloat LQSetCardViewCornerRadius = 5.0;
     self.selected = self.setCard.isCardChosen;
     if (self.setCard.isCardMatched) {
         [UIView animateWithDuration:1.0 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-            self.alpha = 0.5;
-        } completion:nil];
+            self.alpha = 0.0;
+        } completion:^(BOOL finished){
+            if (finished) {
+                [self removeFromSuperview];
+                
+            }
+        }];
     }
 }
 

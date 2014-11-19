@@ -25,7 +25,7 @@
 {
     Card *randomCard = nil;
     if ([self.aDeckOfCards count]) {
-        NSInteger randomIndex = arc4random() % [self.aDeckOfCards count];
+        NSInteger randomIndex = arc4random_uniform((int)[self.aDeckOfCards count]);
         randomCard = self.aDeckOfCards[randomIndex];
         [self.aDeckOfCards removeObjectAtIndex:randomIndex];
     }
