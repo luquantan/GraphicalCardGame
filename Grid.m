@@ -18,6 +18,22 @@
 
 @implementation Grid
 
+- (instancetype)init
+{
+    return nil;
+}
+
+- (instancetype)initWithMinimumNumberOfCells:(NSInteger)minimumNumberOfCells
+{
+    self = [super init];
+    
+    if (self) {
+        self.minimumNumberOfCells = minimumNumberOfCells;
+    }
+    
+    return self;
+}
+
 - (void)validate
 {
     if (self.resolved) return;    // already valid, nothing to do

@@ -152,6 +152,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Set Card" id="baA-S0-8LX"/>
                     <connections>
+                        <outlet property="addCardsButton" destination="Up0-X8-HYV" id="PWc-Iv-XLM"/>
                         <outlet property="mainViewForSetCard" destination="qiM-Qc-Kg4" id="0mX-P2-tvj"/>
                         <outlet property="scoreLabel" destination="bEK-YB-NuC" id="MGh-7V-KEg"/>
                     </connections>

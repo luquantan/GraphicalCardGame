@@ -8,13 +8,9 @@
 
 #import "SetCardView.h"
 #import "SetCard.h"
-//@property (strong, nonatomic) SetCard *setCard;
-//@property (nonatomic) BOOL selected;
-//
-//- (void)updateCard;
-//- (instancetype)initWithFrame:(CGRect)frame andSetCard:(SetCard *)setCard;
 
 static const CGFloat LQSetCardViewCornerRadius = 5.0;
+
 
 @interface SetCardView ()
 //Properties for setting the coordinates and bounding values for the drawings
@@ -98,23 +94,28 @@ static const CGFloat LQSetCardViewCornerRadius = 5.0;
 - (void)setSelected:(BOOL)selected
 {
     _selected = selected;
-    [self setNeedsDisplay];
+    self.alpha = selected ? 0.5 : 1.0;
+//    [self setNeedsDisplay];
 }
+
 #pragma mark - UpdateUI
 - (void)updateCard
 {
     self.selected = self.setCard.isCardChosen;
     if (self.setCard.isCardMatched) {
-        [UIView animateWithDuration:1.0 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        [UIView animateWithDuration:1.0 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionAllowAnimatedContent animations:^{
             self.alpha = 0.0;
+            NSLog(@"ANIMATION");
         } completion:^(BOOL finished){
             if (finished) {
+                NSLog(@"Remove From SuperView");
                 [self removeFromSuperview];
-                
             }
         }];
     }
 }
+
+
 
 #pragma mark - Drawing SetCard
 // Only override drawRect: if you perform custom drawing.

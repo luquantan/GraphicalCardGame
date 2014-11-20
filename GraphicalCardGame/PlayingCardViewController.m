@@ -47,10 +47,9 @@
 - (Grid *)grid
 {
     if (!_grid) {
-        _grid = [[Grid alloc]init];
+        _grid = [[Grid alloc]initWithMinimumNumberOfCells:24];
         _grid.size = self.mainViewForPlayingCards.bounds.size;
         _grid.cellAspectRatio = 2.0 / 3.0;
-        _grid.minimumNumberOfCells = 24;
     }
     return _grid;
 }
@@ -60,7 +59,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self populateGridWithPlayingCardsFromDeck];
+    if (!_grid) [self populateGridWithPlayingCardsFromDeck];
 
 }
 

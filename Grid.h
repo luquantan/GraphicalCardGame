@@ -54,4 +54,6 @@
 - (CGPoint)centerOfCellAtRow:(NSUInteger)row inColumn:(NSUInteger)column;
 - (CGRect)frameOfCellAtRow:(NSUInteger)row inColumn:(NSUInteger)column;
 
+//Override default init
+- (instancetype)initWithMinimumNumberOfCells:(NSInteger)minimumNumberOfCells;
 @end

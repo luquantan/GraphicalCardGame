@@ -73,7 +73,7 @@
 
 - (Card *)drawCardFromCurrentDeckWithIndex:(NSUInteger)index
 {
-    return [self.currentDeck objectAtIndex:index];
+    return [self cardAtIndex:index];
 }
 
 - (NSMutableArray *)copyCurrentGameDeck
@@ -144,7 +144,7 @@
         }
     }
     for (Card *card in cardsToRemove) {
-        [self.currentDeck removeObjectAtIndex:[self indexThatMatchesCard:card]];
+        [self.currentDeck removeObject:card];
     }
 }
 
