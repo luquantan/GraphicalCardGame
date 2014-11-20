@@ -11,6 +11,7 @@
 #import "SetCardDeck.h"
 #import "SetCardView.h"
 #import "Grid.h"
+#import "SetCard.h"
 
 @interface SetCardViewController ()
 //Views
@@ -135,9 +136,28 @@
     [self.currentGame clearMatchedCards];
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %li", self.score];
     [self.mainViewForSetCard.subviews makeObjectsPerformSelector:@selector(updateCard)];
-    if (self.currentGame.score > 0) {
-        [self updateSetCardViewsWhenMatchIsFound]; // Fills the Deck back to 12 cards
+
+    
+    NSMutableArray *matched = [NSMutableArray array];
+    for (SetCardView *setCardView in self.mainViewForSetCard.subviews) {
+        if (setCardView.setCard.isCardMatched) {
+            [matched addObject:setCardView];
+        }
     }
+    
+    [UIView animateWithDuration:1.0 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        for (UIView *v in matched) {
+            v.alpha = 0.0;
+        }
+    } completion:^(BOOL finished){
+        if (finished) {
+            [matched makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            NSLog(@"Remove From SuperView");
+            if (self.currentGame.score > 0) {
+                [self updateSetCardViewsWhenMatchIsFound]; // Fills the Deck back to 12 cards
+            }
+        }
+    }];
 
 }
 
