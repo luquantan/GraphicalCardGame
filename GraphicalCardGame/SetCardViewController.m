@@ -44,10 +44,10 @@
 {
     if (!_grid) {
         _grid = [[Grid alloc] init];
+        _grid.size = self.mainViewForSetCard.bounds.size;
+        _grid.cellAspectRatio = 3.0 / 2.0;
+        _grid.minimumNumberOfCells = 12;
     }
-    _grid.size = self.mainViewForSetCard.bounds.size;
-    _grid.cellAspectRatio = 3.0 / 2.0;
-    _grid.minimumNumberOfCells = 12;
     return _grid;
 }
 
@@ -60,7 +60,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self populateGridWithSetCardsFromDeck];
+    if (!_grid) [self populateGridWithSetCardsFromDeck];
 }
 
 
