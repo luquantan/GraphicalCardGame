@@ -145,19 +145,21 @@
         }
     }
     
-    [UIView animateWithDuration:1.0 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        for (UIView *v in matched) {
-            v.alpha = 0.0;
-        }
-    } completion:^(BOOL finished){
-        if (finished) {
-            [matched makeObjectsPerformSelector:@selector(removeFromSuperview)];
-            NSLog(@"Remove From SuperView");
-            if (self.currentGame.score > 0) {
-                [self updateSetCardViewsWhenMatchIsFound]; // Fills the Deck back to 12 cards
+    if ([matched count]) {
+        [UIView animateWithDuration:1.0 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            for (UIView *v in matched) {
+                v.alpha = 0.0;
             }
-        }
-    }];
+        } completion:^(BOOL finished){
+            if (finished) {
+                [matched makeObjectsPerformSelector:@selector(removeFromSuperview)];
+                NSLog(@"Remove From SuperView");
+                if (self.currentGame.score > 0) {
+                    [self updateSetCardViewsWhenMatchIsFound]; // Fills the Deck back to 12 cards
+                }
+            }
+        }];
+    }
 
 }
 

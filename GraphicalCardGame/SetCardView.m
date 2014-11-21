@@ -95,7 +95,6 @@ static const CGFloat LQSetCardViewCornerRadius = 5.0;
 {
     _selected = selected;
     self.alpha = selected ? 0.5 : 1.0;
-//    [self setNeedsDisplay];
 }
 
 #pragma mark - UpdateUI
@@ -146,6 +145,8 @@ static const CGFloat LQSetCardViewCornerRadius = 5.0;
     }
 }
 
+//Draw Squiggles
+
 - (void)drawSquiggleWithColor:(SetCardSymbolColor)symbolColor withTexture:(SetCardSymbolTexture)symbolTexture
 {
     UIBezierPath *drawSquiggles = [[UIBezierPath alloc] init];
@@ -191,6 +192,8 @@ static const CGFloat LQSetCardViewCornerRadius = 5.0;
         [path addCurveToPoint:CGPointMake(self.rightCenterX, self.heightY) controlPoint1:CGPointMake(self.rightCornerX + self.boundingWidth + (self.boundingWidth /2), self.centerY + (self.boundingHeight / 5)) controlPoint2:CGPointMake(self.rightCornerX, (self.centerY - (self.boundingHeight / 5)))];
     }
 }
+
+//Draw Diamonds
 
 - (void)drawDiamondWithColor:(SetCardSymbolColor)symbolColor withTexture:(SetCardSymbolTexture)symbolTexture
 {
@@ -246,6 +249,8 @@ static const CGFloat LQSetCardViewCornerRadius = 5.0;
         [path closePath];
     }
 }
+
+//Draw RoundedRct
 
 - (void)drawRoundedRectWithColor:(SetCardSymbolColor)symbolColor withSymbolTexture:(SetCardSymbolTexture)symbolTexture
 {
